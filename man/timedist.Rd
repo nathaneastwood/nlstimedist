@@ -20,4 +20,8 @@ timedist(data, start, ...)
 
 Fit the Franco model
 }
+\details{
+The \code{\link[minpack.lm]{nlsLM}}function is used instead of the
+  \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt algorithm because...
+}
 

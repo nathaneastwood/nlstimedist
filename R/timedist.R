@@ -6,8 +6,18 @@
 #' @param start A list of starting parameters for \code{r}, \code{c} and \code{t}.
 #' @param ... Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.
 #'
+#' @details The \code{\link[minpack.lm]{nlsLM}}function is used instead of the
+#'   \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt algorithm because...
+#'
 #' @export
 timedist <- function(data, start, ...) {
+  # timedist <- function(data, x, y, start, ...) {
+  # timedist <- function(data, x, y, r, c, t, ...) {                             <- this is probably the easiest way. Then in the model, I would have start = list(r = r, c = c, ...)
+  # With these above two methods, I would need additional checks to ensure that x and y are pointing to the correct things in the data.
+  ############################################
+  ### Need to think about global variable bindings for x, y, r, c and t.
+  ### Maybe think about all.vars(as.formula(...))
+  ############################################
 
   assertr::verify(start, r > 0)
   assertr::verify(start, r <= 1)
@@ -19,7 +29,7 @@ timedist <- function(data, start, ...) {
   model <- minpack.lm::nlsLM(y ~ 1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x,
                              data = data,
                              start = start, ...)
-  model$m$moments <- timedistMoments(model)
+  model$m$moments <- tdMoments(model)
   model$m$rss <- timedistRSS(model)
 
   structure(model,
