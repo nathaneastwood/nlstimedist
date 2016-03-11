@@ -13,6 +13,7 @@ Description: More about what it does (maybe more than one line)
 Depends:
   R (>= 3.1.2)
 Imports:
+  assertr (>= 1.0.0),
   dplyr (>= 0.4.3),
   minpack.lm (>= 1.2-0)
 License: GPL-2

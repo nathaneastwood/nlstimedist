@@ -1,6 +1,5 @@
-#' @import dplyr
 yMax <- function(data, y, ...) {
   data %>%
-    group_by_(...) %>%
-    summarise(yMax = max(.$y))
+    dplyr::group_by_(...) %>%
+    dplyr::summarise(yMax = max(.$y))
 }
