@@ -6,14 +6,14 @@
 \alias{timedist-package}
 \title{Fit...}
 \usage{
-timedist(data, start, ...)
+timedist(data, x, y, r, c, t, ...)
 }
 \arguments{
 \item{data}{The data to be included in the model.}
 
-\item{start}{A list of starting parameters for \code{r}, \code{c} and \code{t}.}
-
 \item{...}{Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.}
+
+\item{start}{A list of starting parameters for \code{r}, \code{c} and \code{t}.}
 }
 \description{
 \pkg{timedist} allows you to

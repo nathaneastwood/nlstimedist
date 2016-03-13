@@ -7,29 +7,29 @@
 \alias{tdMoments}
 \alias{tdSkew}
 \alias{tdVariance}
-\title{Calculate moments for the fitted td model}
+\title{Calculate moments for the fitted timedist model}
 \usage{
-tdMoments(object, ...)
+tdMoments(r, c, t, ...)
 
-tdMean(object, upper = Inf, ...)
+tdMean(r, c, t, upper = t * 10, ...)
 
-tdVariance(object, upper = Inf, ...)
+tdVariance(r, c, t, upper = t * 10, ...)
 
-tdSkew(object, upper = Inf, ...)
+tdSkew(r, c, t, upper = t * 10, ...)
 
-tdKurtosis(object, upper = Inf, alternative = FALSE, ...)
+tdKurtosis(r, c, t, upper = t * 10, alternative = FALSE, ...)
 
-tdEntropy(object, upper = NULL, ...)
+tdEntropy(r, c, t, upper = t * 10, ...)
 }
 \arguments{
-\item{object}{A model of class \code{td}.}
+\item{r, c, t}{Parameters of the Franco distribution}
 
 \item{...}{Additional arguments to be passed to \code{\link[stats]{integrate}}}
 
-\item{upper}{Defaults to \code{Inf} for all moment functions except for entropy which uses
-\code{t * 10} by default.}
+\item{upper}{The upper limit of integration. Defaults to \code{t * 10}. Can be infinite for all
+moment functions except for entropy.}
 
-\item{alternative}{An alternative calculation method}
+\item{alternative}{An alternative calculation method.}
 }
 \value{
 A single value, or in the case of \code{tdMoments}, a \code{data.frame} of values.

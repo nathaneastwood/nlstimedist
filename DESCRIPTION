@@ -1,14 +1,13 @@
 Package: timedist
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.1.9009
+Version: 0.0.1.9010
 Author: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre")),
   person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", role = "ctb"),
   person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "ctb"),
   person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "ctb")
   )
-Maintainer: person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre"))
 Description: More about what it does (maybe more than one line)
 Depends:
   R (>= 3.1.2)
