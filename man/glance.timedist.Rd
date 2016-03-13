@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{An object of class \code{timedist}.}
+
+\item{...}{Additional arguments (not used).}
 }
 \value{
 \code{glance} returns one row with the columns

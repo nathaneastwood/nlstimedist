@@ -2,7 +2,7 @@ Package: timedist
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.0.1.9010
-Author: c(
+Authors@R: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre")),
   person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", role = "ctb"),
   person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "ctb"),

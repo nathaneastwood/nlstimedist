@@ -3,6 +3,7 @@
 #' glance methods always return either a one-row data frame, or NULL
 #'
 #' @param x An object of class \code{timedist}.
+#' @param ... Additional arguments (not used).
 #'
 #' @return \code{glance} returns one row with the columns
 #'   \item{sigma}{the square root of the estimated residual variance}
@@ -15,10 +16,12 @@
 #'   \item{df.residual}{residual degrees of freedom}
 #'   \item{RSS}{corrected residual sum of squares}
 #'
-#' @import broom
+#' @importFrom broom glance
+#'
+#' @export
 glance.timedist <- function(x, ...) {
-  glanceNls <- getS3method("glance", "nls")
-  ret <- glanceNls(x)
+  class(x) <- "nls"
+  ret <- broom::glance(x)
   ret$RSS <- tdRSS(x)
   ret
 }

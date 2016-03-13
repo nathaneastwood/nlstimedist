@@ -11,9 +11,11 @@ timedist(data, x, y, r, c, t, ...)
 \arguments{
 \item{data}{The data to be included in the model.}
 
-\item{...}{Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.}
+\item{x, y}{The x and y values in the data.}
 
-\item{start}{A list of starting parameters for \code{r}, \code{c} and \code{t}.}
+\item{r, c, t}{The starting parameters for the model.}
+
+\item{...}{Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.}
 }
 \description{
 \pkg{timedist} allows you to

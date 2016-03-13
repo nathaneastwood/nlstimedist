@@ -3,7 +3,8 @@
 #' @description Fit the Franco model
 #'
 #' @param data The data to be included in the model.
-#' @param start A list of starting parameters for \code{r}, \code{c} and \code{t}.
+#' @param x,y The x and y values in the data.
+#' @param r,c,t The starting parameters for the model.
 #' @param ... Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.
 #'
 #' @details The \code{\link[minpack.lm]{nlsLM}}function is used instead of the
