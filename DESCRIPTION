@@ -1,7 +1,7 @@
 Package: timedist
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.1.9008
+Version: 0.0.1.9009
 Author: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre")),
   person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", role = "ctb"),
