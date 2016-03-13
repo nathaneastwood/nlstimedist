@@ -1,20 +1,20 @@
 Package: timedist
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.1.9007
+Version: 0.0.1.9008
 Author: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre")),
   person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", role = "ctb"),
   person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "ctb"),
   person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "ctb")
   )
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Maintainer: person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre"))
 Description: More about what it does (maybe more than one line)
 Depends:
   R (>= 3.1.2)
 Imports:
   assertr (>= 1.0.0),
-  dplyr (>= 0.4.3),
+  broom (>= 0.4.0),
   minpack.lm (>= 1.2-0)
 License: GPL-2
 LazyData: TRUE
