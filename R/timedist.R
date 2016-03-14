@@ -7,7 +7,7 @@
 #' @param r,c,t The starting parameters for the model.
 #' @param ... Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.
 #'
-#' @details The \code{\link[minpack.lm]{nlsLM}}function is used instead of the
+#' @details The \code{\link[minpack.lm]{nlsLM}} function is used instead of the
 #'   \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt algorithm because...
 #'
 #' @export
