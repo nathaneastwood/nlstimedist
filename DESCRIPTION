@@ -1,7 +1,7 @@
 Package: timedist
 Type: Package
 Title: Fit the time-course of biological phenomena
-Version: 0.0.1.9013
+Version: 0.0.1.9014
 Authors@R: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre")),
   person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", role = "ctb"),

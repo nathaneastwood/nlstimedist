@@ -1,0 +1,190 @@
+---
+title: "Package Overview"
+author: "Nathan Eastwood"
+date: "15 March 2016"
+output: pdf_document
+---
+# Overview
+Hi, below I will give you a brief demo of how the package works. If you have any questions, then please feel free to email me.
+  
+## Installation
+If you haven't done so already, you will be able to install the package with the following command
+  
+```{r, echo = TRUE, eval = FALSE}
+install.packages("<path to file>.tgz", type = "source", repos = NULL)
+```
+
+This is telling **R** to install from a binary file (`type = "source"`) and not from a repository such as CRAN (`repos = NULL`).
+
+## Accessing this vignette
+You can access this vignette with the command `vignette("timedist")` once you have installed and loaded the package.
+
+## How the model works
+You have seen the model working already, but essentially the main function you will need is `timedist()`, see `?timedist` for details. I am now going to show you 2 examples taken from some data you sent to me; both censored and time series data will be covered.
+
+### Time Series data
+In order for you to construct the data yourself, you can run the following code:
+
+```{r, echo = -1, eval = FALSE}
+options(stringsAsFactors = FALSE)
+structure(list(Location = c("Plymouth", "Plymouth", "Plymouth", 
+                            "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", 
+                            "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", 
+                            "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth"
+), Site = c("A", "A", "A", "A", "A", "A", "A", "A", "A", "A", 
+            "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A"), Time.in.seconds..x. = c(0L, 
+                                                                                            8L, 17L, 38L, 42L, 107L, 117L, 125L, 128L, 131L, 138L, 139L, 
+                                                                                            146L, 148L, 151L, 173L, 188L, 214L, 230L, 241L, 250L), y...cumulative.n = 0:20, 
+Proportion.of.ymax = c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 
+                       0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 
+                       0.9, 0.95, 1), Eye.estimate = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+                                                       0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), 
+SPSS.fitted.CDF = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+                    0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), SPSS.fitted.PDF = c(0L, 
+                                                                                     0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 
+                                                                                     0L, 0L, 0L, 0L, 0L)), .Names = c("Location", "Site", "Time.in.seconds..x.", 
+                                                                                                                      "y...cumulative.n", "Proportion.of.ymax", "Eye.estimate", "SPSS.fitted.CDF", 
+                                                                                                                      "SPSS.fitted.PDF"), class = "data.frame", row.names = c(NA, -21L
+                                                                                                                      ))
+```
+
+But essentially it looks like this (once tidied):
+
+```{r, echo = FALSE}
+TSdata <- structure(list(Location = c("Plymouth", "Plymouth", "Plymouth", 
+                                      "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", 
+                                      "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", 
+                                      "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth", "Plymouth"
+), Site = c("A", "A", "A", "A", "A", "A", "A", "A", "A", "A", 
+            "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A"), Time.in.seconds..x. = c(0L, 
+                                                                                            8L, 17L, 38L, 42L, 107L, 117L, 125L, 128L, 131L, 138L, 139L, 
+                                                                                            146L, 148L, 151L, 173L, 188L, 214L, 230L, 241L, 250L), Proportion.of.ymax = c(0, 
+                                                                                                                                                                          0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 
+                                                                                                                                                                          0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1)), .Names = c("Location", 
+                                                                                                                                                                                                                                      "Site", "Time.in.seconds..x.", "Proportion.of.ymax"), row.names = c(NA, 
+                                                                                                                                                                                                                                                                                                          -21L), class = "data.frame")
+colnames(TSdata)[3:4] <- c("x", "y")
+TSdata
+```
+
+So the model works by giving it x and the y proportion values. This seemed to be the easiest way to keep things consistent between the time series and censored data. Of course one of the initial design specs was to get the function to calculate the proportions for you and to remove any rows containing 0s or repeat data. However the data that I have suggests that the time series data is cumulative whereas the censored data is no. of events for each time point? If I am wrong then correct me but it is easier to pre-sort your data in **R** or Excel than it is to work out what type of data you are using in a function and then sort it. Let me know if my assumption is incorrect, however and I can change this. Also let me know if you'd like a hand writing little functions to sort your data, these aren't really functions I would include in the package, however.
+
+```{r, echo = TRUE, eval = TRUE}
+library(timedist)
+lm1 <- timedist(TSdata, x = "x", y = "y", r = 0.01, c = 0.05, t = 140)
+lm1
+```
+
+If we take a look at the structure of the `lm1` object, you will see the data it contains
+
+```{r, echo = TRUE, eval = TRUE}
+str(lm1)
+```
+
+As you can see, the main information you will be using is accessed via `lm1$m$...()` where `...` is a function name such as `resid`, e.g.
+
+```{r, echo = TRUE, eval = TRUE}
+lm1$m$deviance()
+```
+
+This is the standard output from the `minpack.lm::nlsLM` function, only I have added an additional class, `timedist` and the `moments`, `ymax` and `rss` (note that the rss is the corrected rss - the same as what SPSS provides). These are accessed in the following way
+
+```{r}
+lm1$m$moments
+lm1$m$ymax
+lm1$m$rss
+```
+
+You can calculate moments yourself, however, with the `tdMoments()` function of the individual functions, `tdMean`, `tdVariance`, `tdSkew`, `tdKurtosis` and `tdEntropy`.
+
+```{r}
+tdMoments(r = 0.01, c = 0.05, t = 140)
+```
+
+## Censored data
+```{r}
+censored <- structure(list(x = c(91, 92, 95, 97, 98, 99, 100, 101, 102, 103, 
+                                 105, 106, 108), y = c(0, 0.02, 0.07, 0.2, 0.26, 0.33, 0.55, 0.7, 
+                                                       0.82, 0.85, 0.93, 0.98, 1)), .Names = c("x", "y"), row.names = c(NA, 
+                                                                                                                        -13L), class = "data.frame")
+censored
+```
+
+We can fit the model as normal
+
+```{r}
+lm2 <- timedist(censored, x = "x", y = "y", r = 0.05, c = 0.5, t = 102)
+lm2
+```
+
+Again, you should find that this fit matches the Excel sheet you sent me.
+
+## Plotting
+The PDF and CDF plots are generated for a model, or list of models, using the `ggtimedistPDF()` and `ggtimedistPDF()` functions. 
+
+```{r, fig.height = 6, fig.width = 6, fig.align = 'center'}
+ggtimedistCDF(lm1, lm2)
+```
+
+And the pdfs...
+
+```{r, fig.height = 6, fig.width = 6, fig.align = 'center'}
+ggtimedistPDF(lm1, lm2)
+```
+
+These plots have been written in `ggplot2` and are therefore highly customisable.
+
+## Possible further work
+
+I looked into the possibility of doing multiple models in one go again and asked around for some advice. Basically, it is possible - as I showed the other day - but it isn't nice/easy. The only other solution we could come up between us is to use a data.frame of starting values instead of nested lists for a cleaner looking UI. You would then join this data.frame to your data by conditioning on what to join by. This would look like this:
+
+```{r}
+starts = data.frame(Run = unique(DNase$Run),
+                    xmid_start = rnorm(11, sd = 0.1),
+                    scale_start = 1 + rnorm(11, sd = 0.1))
+starts
+```
+
+```{r, echo = -1}
+exampleData <- DNase
+library(dplyr)
+exampleData %>% glimpse
+```
+
+Joining them together gives...
+
+```{r}
+exampleData <- exampleData %>% 
+    left_join(starts) %>%
+    group_by(Run)
+exampleData
+```
+
+You can then fit multiple models using
+
+```{r}
+models <- exampleData %>% 
+  do(model = nls(density ~ 1/(1 + exp((xmid - log(conc))/scal)),
+             data = .,
+             start = list(xmid = first(.$xmid_start),
+                          scal = first(.$scale_start)),
+             algorithm = "plinear"))
+models
+```
+
+Obviously the output isn't nice, but you can access it easily enough
+
+```{r}
+models$model[[1]]
+```
+
+The good thing about this method is that setting up `r`, `c` and `t` is much neater than my first solution. If this is something that interests you then this would have to go into the next version of the package as it would potentially require a rewrite of the plots too.
+
+# What I need from you
+
+* Test, test, test. I do not expect the package will work first time. If things do break, then to help me out as much as possible, please save your current working environment with `save.image()`, take screen shots, save your history with `savehistory()`, let me know what the error files say and write a short description of what it is you were doing when it went wrong. Basically I need you to provide me with as much information as possible in order for me to recreate the error and debug the code. 
+* Let me know what I have missed. I am fairly confident the package does most of what you would like it to do. If, however, something doesn't work the way you want it to then let me know.
+* I need to know what the `S` parameter is used for in the PDF function and whether or not it should be in any other functions, such as the moments. I also need to know whether it should even be included in the PDF function? (see `?tdPDF`). Currently the pdf plot just uses `S = 1` by default.
+* I need you to write a short description of the package, 2-3 sentences long. Of course, I could do this no problem.
+* Send me a reference to include in the `?timedist` help file for the original model's paper.
+* Re-write this vignette. Obviously these are instructions that are very specific to you. But really this vignette should describe how to use the package in a more general, but technical, way. It should describe how your model works and how to implement it with this package. It would be useful for you to look at other vignettes from packages for specific models. If you know `rmarkdown` then great, please write it in that, otherwise just write it in word but include the code in a separate .R script.
