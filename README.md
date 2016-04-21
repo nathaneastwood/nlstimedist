@@ -1,4 +1,4 @@
-# timedist
+# nlstimedist
 
 Installation
 ------------
