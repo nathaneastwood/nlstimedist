@@ -78,7 +78,7 @@ TSdata
 So the model works by giving it x and the y proportion values. This seemed to be the easiest way to keep things consistent between the time series and censored data. Of course one of the initial design specs was to get the function to calculate the proportions for you and to remove any rows containing 0s or repeat data. However the data that I have suggests that the time series data is cumulative whereas the censored data is no. of events for each time point? If I am wrong then correct me but it is easier to pre-sort your data in **R** or Excel than it is to work out what type of data you are using in a function and then sort it. Let me know if my assumption is incorrect, however and I can change this. Also let me know if you'd like a hand writing little functions to sort your data, these aren't really functions I would include in the package, however.
 
 ```{r, echo = TRUE, eval = TRUE}
-library(timedist)
+library(nlstimedist)
 lm1 <- timedist(TSdata, x = "x", y = "y", r = 0.01, c = 0.05, t = 140)
 lm1
 ```
