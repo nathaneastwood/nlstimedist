@@ -1,14 +1,16 @@
-Package: timedist
+Package: nlstimedist
 Type: Package
-Title: Fit the time-course of biological phenomena
-Version: 0.0.1.9014
+Title: Non-linear model fitting of time distribution of biological phenomena
+Version: 0.0.1.9015
 Authors@R: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com", role = c("aut", "cre")),
   person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", role = "ctb"),
   person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "ctb"),
   person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "ctb")
   )
-Description: More about what it does (maybe more than one line)
+Description: nlstimedist fits a biologically meaningful distribution function to time-sequence data
+  (phenology), estimates parameters to draw the cumulative distribution function and probability
+  density function and calculates standard statistical moments and percentiles.
 Depends:
   R (>= 3.1.2)
 Imports:
