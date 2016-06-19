@@ -1,3 +1,8 @@
+#' Create the data for the plots
+#'
+#' Augment the data from a model output to be in a form suitable for ggplot
+#'
+#' @param ... A list of models
 augmentMultiple <- function(...) {
   models <- list(...)
   lapply(models,
@@ -30,9 +35,9 @@ ggtimedistCDF <- function(...) {
     modelNo <- paste0("model", rep(seq_along(data), lapply(data, nrow)))
     data <- do.call("rbind", data)
     data$group <- modelNo
-    ggplot(data = data, aes(x = "x", y = "y", colour = "group")) +
+    ggplot(data = data, aes_string(x = "x", y = "y", colour = "group")) +
       geom_point() +
-      geom_line(aes(x = "x", y = "fitted", colour = "group"))
+      geom_line(aes_string(x = "x", y = "fitted", colour = "group"))
   }
 }
 
