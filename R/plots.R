@@ -28,8 +28,8 @@ ggtimedistCDF <- function(...) {
     data <- broom::augment(...)
     colnames(data) <- c("x", "y", "fitted", "resid")
     ggplot(data = data) +
-      geom_point(aes(x = "x", y = "y")) +
-      geom_line(aes(x = "x", y = "fitted"))
+      geom_point(aes_string(x = "x", y = "y")) +
+      geom_line(aes_string(x = "x", y = "fitted"))
   } else {
     data <- augmentMultiple(...)
     modelNo <- paste0("model", rep(seq_along(data), lapply(data, nrow)))
