@@ -19,7 +19,7 @@ Hi, below I will give you a brief demo of how the package works. If you have any
 If you haven't done so already, you will be able to install the package with the following command
   
 ```{r, echo = TRUE, eval = FALSE}
-install.packages("<path to file>.tgz", type = "source", repos = NULL)
+install.packages("<path to file>.tar.gz", type = "source", repos = NULL)
 ```
 
 This is telling **R** to install from a binary file (`type = "source"`) and not from a repository such as CRAN (`repos = NULL`).

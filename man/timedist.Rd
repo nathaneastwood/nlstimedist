@@ -4,7 +4,7 @@
 \name{timedist}
 \alias{timedist}
 \alias{timedist-package}
-\title{Fit...}
+\title{Fit the time-course of biological phenomena}
 \usage{
 timedist(data, x, y, r, c, t, ...)
 }
@@ -18,7 +18,7 @@ timedist(data, x, y, r, c, t, ...)
 \item{...}{Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.}
 }
 \description{
-\pkg{timedist} allows you to
+\pkg{timedist} allows you to...
 
 Fit the Franco model
 }
