@@ -17,7 +17,8 @@ Imports:
   assertr (>= 1.0.0),
   broom (>= 0.4.0),
   ggplot2 (>= 2.1.0),
-  minpack.lm (>= 1.2-0)
+  minpack.lm (>= 1.2-0),
+  nlstools (>= 1.0-2)
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
