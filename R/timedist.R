@@ -1,3 +1,22 @@
+#' Prepare \code{nlstimedist} data
+#'
+#' The data for \code{nlstimedist} needs to be in a particular format. This function prepares the
+#' data for the model.
+#'
+#' @param data The raw data to be cleaned.
+#' @param x The time variable.
+#' @param y The number of events.
+#'
+#' @export
+tdData <- function(data, x, y) {
+  rowsWithoutZero <- which(data[, y] == 0)[which(data[, y] == 0) != 1]
+  data <- list(raw = data,
+               clean = data[-rowsWithoutZero, ])
+  data$clean$cumN <- cumsum(data$clean[, y])
+  data$clean$propYMax <- data$clean$cumN / max(data$clean$cumN)
+  data
+}
+
 #' @title Fit the Franco model
 #'
 #' @description Fit the Franco model
