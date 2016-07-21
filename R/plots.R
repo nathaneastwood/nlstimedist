@@ -3,6 +3,8 @@
 #' Augment the data from a model output to be in a form suitable for ggplot
 #'
 #' @param ... A list of models
+#'
+#' @importFrom broom augment
 augmentMultiple <- function(...) {
   models <- list(...)
   lapply(models,
@@ -21,6 +23,7 @@ augmentMultiple <- function(...) {
 #' @param ... A model (or a list of models) of class \code{timedist}.
 #'
 #' @import ggplot2
+#' @importFrom broom augment
 #' @export
 ggtimedistCDF <- function(...) {
   models <- list(...)
