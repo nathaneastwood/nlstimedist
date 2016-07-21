@@ -9,9 +9,14 @@
 #'
 #' @export
 tdData <- function(data, x, y) {
-  rowsWithoutZero <- which(data[, y] == 0)[which(data[, y] == 0) != 1]
-  data <- list(raw = data,
-               clean = data[-rowsWithoutZero, ])
+  if (any(data[, y] == 0)) {
+    rowsWithoutZero <- which(data[, y] == 0)[which(data[, y] == 0) != 1]
+    data <- list(raw = data,
+                 clean = data[-rowsWithoutZero, ])
+  } else {
+    data <- list(raw = data,
+                 clean = data)
+  }
   data$clean$cumN <- cumsum(data$clean[, y])
   data$clean$propYMax <- data$clean$cumN / max(data$clean$cumN)
   data
