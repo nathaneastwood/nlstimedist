@@ -10,7 +10,7 @@ ggtimedistCDF(...)
 \item{...}{A model (or a list of models) of class \code{timedist}.}
 }
 \description{
-Given a model (or models) of class \code{timedist}, produce a cumulative distribution plot for
-each of them.
+Given a model (or models) of class \code{timedist}, produce a cumulative
+distribution plot for each of them.
 }
 

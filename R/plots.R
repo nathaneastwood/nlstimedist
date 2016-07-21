@@ -15,8 +15,8 @@ augmentMultiple <- function(...) {
 
 #' Plot the timedist CDF
 #'
-#' Given a model (or models) of class \code{timedist}, produce a cumulative distribution plot for
-#' each of them.
+#' Given a model (or models) of class \code{timedist}, produce a cumulative
+#' distribution plot for each of them.
 #'
 #' @param ... A model (or a list of models) of class \code{timedist}.
 #'
@@ -43,8 +43,8 @@ ggtimedistCDF <- function(...) {
 
 #' Plot the timedist PDF
 #'
-#' Given a model (or models) of class \code{timedist}, produce a probability density function plot
-#' for each of them.
+#' Given a model (or models) of class \code{timedist}, produce a probability
+#' density function plot for each of them.
 #'
 #' @param ... A model (or a list of models) of class \code{timedist}.
 #' @param xlim The x limits (x1, x2) of the plot.
@@ -56,7 +56,9 @@ ggtimedistPDF <- function(..., xlim = NULL) {
   data <- augmentMultiple(...)
   modelNo <- paste0("model", seq_along(data))
   data <- do.call("rbind", data)
-  if (is.null(xlim)) xlim <- seq(min(data$x), max(data$x), by = max(data$x) / 1000)
+  if (is.null(xlim)) {
+    xlim <- seq(min(data$x), max(data$x), by = max(data$x) / 1000)
+  }
   pdfData <- lapply(params, function(.) {
     data.frame(y = tdPDF(xlim, S = 1, .["r"], .["c"], .["t"]),
                x = xlim)

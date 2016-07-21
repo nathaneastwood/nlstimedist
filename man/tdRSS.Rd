@@ -13,7 +13,7 @@ tdRSS(model)
 A single value.
 }
 \description{
-Calculate the corrected residual sum of squares for a model of class
-  \code{timedist}.
+Calculate the corrected residual sum of squares for a model of
+  class \code{timedist}.
 }
 

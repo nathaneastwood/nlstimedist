@@ -11,11 +11,13 @@ timedist(data, x, y, r, c, t, ...)
 \arguments{
 \item{data}{The data to be included in the model.}
 
-\item{x, y}{The x and y values in the data, where the y values are the proportions.}
+\item{x, y}{The x and y values in the data, where the y values are the
+proportions.}
 
 \item{r, c, t}{The starting parameters for the model.}
 
-\item{...}{Additional parameters to be passed to \code{\link[minpack.lm]{nlsLM}}.}
+\item{...}{Additional parameters to be passed to
+\code{\link[minpack.lm]{nlsLM}}.}
 }
 \description{
 \pkg{timedist} allows you to...
@@ -24,6 +26,7 @@ Fit the Franco model
 }
 \details{
 The \code{\link[minpack.lm]{nlsLM}} function is used instead of the
-  \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt algorithm because...
+  \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt
+  algorithm because...
 }
 

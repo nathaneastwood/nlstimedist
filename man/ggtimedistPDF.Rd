@@ -12,7 +12,7 @@ ggtimedistPDF(..., xlim = NULL)
 \item{xlim}{The x limits (x1, x2) of the plot.}
 }
 \description{
-Given a model (or models) of class \code{timedist}, produce a probability density function plot
-for each of them.
+Given a model (or models) of class \code{timedist}, produce a probability
+density function plot for each of them.
 }
 

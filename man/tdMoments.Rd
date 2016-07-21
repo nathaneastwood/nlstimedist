@@ -24,18 +24,20 @@ tdEntropy(r, c, t, upper = t * 10, ...)
 \arguments{
 \item{r, c, t}{Parameters of the Franco distribution}
 
-\item{...}{Additional arguments to be passed to \code{\link[stats]{integrate}}}
+\item{...}{Additional arguments to be passed to
+\code{\link[stats]{integrate}}}
 
-\item{upper}{The upper limit of integration. Defaults to \code{t * 10}. Can be infinite for all
-moment functions except for entropy.}
+\item{upper}{The upper limit of integration. Defaults to \code{t * 10}. Can
+be infinite for all moment functions except for entropy.}
 
 \item{alternative}{An alternative calculation method.}
 }
 \value{
-A single value, or in the case of \code{tdMoments}, a \code{data.frame} of values.
+A single value, or in the case of \code{tdMoments}, a
+  \code{data.frame} of values.
 }
 \description{
-Individual functions are provided as well as a wrapper to calculate the moments for
-your fitted model.
+Individual functions are provided as well as a wrapper to
+calculate the moments for your fitted model.
 }
 

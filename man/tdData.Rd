@@ -14,7 +14,7 @@ tdData(data, x, y)
 \item{y}{The number of events.}
 }
 \description{
-The data for \code{nlstimedist} needs to be in a particular format. This function prepares the
-data for the model.
+The data for \code{nlstimedist} needs to be in a particular format. This
+function prepares the data for the model.
 }
 

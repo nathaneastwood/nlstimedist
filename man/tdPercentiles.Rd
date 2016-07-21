@@ -13,7 +13,8 @@ tdPercentiles(model, n, upper = model$m$getPars()["t"] * 10, ...)
 
 \item{upper}{The upper end point of the interval to search.}
 
-\item{...}{Additional parameters to be passed to \code{\link[stats]{uniroot}}.}
+\item{...}{Additional parameters to be passed to
+\code{\link[stats]{uniroot}}.}
 }
 \description{
 Calculate the percentiles for a given model output
