@@ -7,19 +7,39 @@
 #' @param x The time variable.
 #' @param y The number of events.
 #'
+#' @return
+#' A list containing
+#' \itemize{
+#'   \item raw The raw data supplied to the function, i.e. \code{data}.
+#'   \item clean item The cleaned data to be supplied to \code{timedist}.
+#' }
+#'
 #' @export
 tdData <- function(data, x, y) {
-  if (any(data[, y] == 0)) {
-    rowsWithoutZero <- which(data[, y] == 0)[which(data[, y] == 0) != 1]
-    data <- list(raw = data,
-                 clean = data[-rowsWithoutZero, ])
-  } else {
-    data <- list(raw = data,
-                 clean = data)
+  if (any(is.na(data[, y]))) {
+    isNA <- is.na(data[, y])
+    data <- data[!isNA, ]
+    warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
   }
-  data$clean$cumN <- cumsum(data$clean[, y])
-  data$clean$propYMax <- data$clean$cumN / max(data$clean$cumN)
-  data
+  if (any(data[, y] == 0)) {
+    rowsWithoutZero <- which(data[, y] == 0)
+    clean <- if (length(rowsWithoutZero) == 1 && rowsWithoutZero == 1) {
+      data[-1, ]
+    } else {
+      data[-rowsWithoutZero[rowsWithoutZero != 1], ]
+    }
+  }
+  clean$cumN <- cumsum(clean[, y])
+  clean$propYMax <- clean$cumN / max(clean$cumN)
+  rownames(clean) <- NULL
+  structure(list(raw = data,
+                 clean = clean),
+            class = "td")
+}
+
+#' @export
+print.td <- function(x, ...) {
+  print(x$clean)
 }
 
 #' @title Fit the Franco model
@@ -39,6 +59,10 @@ tdData <- function(data, x, y) {
 #'
 #' @export
 timedist <- function(data, x, y, r, c, t, ...) {
+
+  if (class(data) == "td") {
+    data <- data$clean
+  }
 
   if (missing(y)) stop("y is missing")
   if (missing(x)) stop("x is missing")
