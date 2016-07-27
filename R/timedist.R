@@ -15,31 +15,44 @@
 #' }
 #'
 #' @export
-tdData <- function(data, x, y) {
-  if (any(is.na(data[, y]))) {
-    isNA <- is.na(data[, y])
-    data <- data[!isNA, ]
-    warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
-  }
-  if (any(data[, y] == 0)) {
-    rowsWithoutZero <- which(data[, y] == 0)
-    clean <- if (length(rowsWithoutZero) == 1 && rowsWithoutZero == 1) {
-      data[-1, ]
-    } else {
-      data[-rowsWithoutZero[rowsWithoutZero != 1], ]
-    }
-  }
-  clean$cumN <- cumsum(clean[, y])
-  clean$propYMax <- clean$cumN / max(clean$cumN)
-  rownames(clean) <- NULL
+tdData <- function(data, x, ...) {
+
+  testNum <- apply(data[, c(x, ...)], 2, is.numeric)
+  if (FALSE %in% testNum) stop("Data are not numeric")
+
+  ys <- list(...)
+  cleans <- lapply(ys,
+         function(.) {
+           subData <- data[, c(x, .)]
+           if (any(is.na(subData[, .]))) {
+             isNA <- is.na(subData[, .])
+             subData <- subData[!isNA, ]
+             warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
+           }
+           if (any(subData[, .] == 0)) {
+             rowsWithoutZero <- which(subData[, .] == 0)
+             clean <- if (length(rowsWithoutZero) == 1 &&
+                          rowsWithoutZero == 1) {
+               subData[-1, ]
+             } else {
+               subData[-rowsWithoutZero[rowsWithoutZero != 1], ]
+             }
+           }
+           clean$cumN <- cumsum(clean[, .])
+           clean$propMax <- clean$cumN / max(clean$cumN)
+           rownames(clean) <- NULL
+           clean
+         })
+  names(cleans) <- paste0("clean_", c(...))
+
   structure(list(raw = data,
-                 clean = clean),
+                 clean = cleans),
             class = "td")
 }
 
 #' @export
 print.td <- function(x, ...) {
-  print(x$clean)
+  str(x$clean)
 }
 
 #' @title Fit the Franco model
@@ -59,10 +72,6 @@ print.td <- function(x, ...) {
 #'
 #' @export
 timedist <- function(data, x, y, r, c, t, ...) {
-
-  if (class(data) == "td") {
-    data <- data$clean
-  }
 
   if (missing(y)) stop("y is missing")
   if (missing(x)) stop("x is missing")
