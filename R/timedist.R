@@ -6,7 +6,8 @@
 #' @param data The raw data to be cleaned.
 #' @param x The time variable.
 #' @param y The number of events.
-#' @param runNo The run number.
+#' @param runNo The run numbers. This is \code{NULL} by default if you are only
+#'   using the function for one run.
 #'
 #' @return
 #' A list containing

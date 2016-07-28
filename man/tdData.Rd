@@ -13,7 +13,8 @@ tdData(data, x, y, runNo = NULL)
 
 \item{y}{The number of events.}
 
-\item{runNo}{The run number.}
+\item{runNo}{The run numbers. This is \code{NULL} by default if you are only
+using the function for one run.}
 }
 \value{
 A list containing
