@@ -4,7 +4,7 @@
 \alias{tdData}
 \title{Prepare \code{nlstimedist} data}
 \usage{
-tdData(data, x, y)
+tdData(data, x, y, runNo = NULL)
 }
 \arguments{
 \item{data}{The raw data to be cleaned.}
@@ -12,6 +12,15 @@ tdData(data, x, y)
 \item{x}{The time variable.}
 
 \item{y}{The number of events.}
+
+\item{runNo}{The run number.}
+}
+\value{
+A list containing
+\itemize{
+  \item raw The raw data supplied to the function, i.e. \code{data}.
+  \item clean item The cleaned data to be supplied to \code{timedist}.
+}
 }
 \description{
 The data for \code{nlstimedist} needs to be in a particular format. This

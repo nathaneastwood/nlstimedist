@@ -6,6 +6,7 @@
 #' @param data The raw data to be cleaned.
 #' @param x The time variable.
 #' @param y The number of events.
+#' @param runNo The run number.
 #'
 #' @return
 #' A list containing
@@ -15,44 +16,49 @@
 #' }
 #'
 #' @export
-tdData <- function(data, x, ...) {
+tdData <- function(data, x, y, runNo = NULL) {
 
-  testNum <- apply(data[, c(x, ...)], 2, is.numeric)
+  out <- list(raw = data)
+
+  testNum <- apply(data, 2, is.numeric)
   if (FALSE %in% testNum) stop("Data are not numeric")
 
-  ys <- list(...)
-  cleans <- lapply(ys,
-         function(.) {
-           subData <- data[, c(x, .)]
-           if (any(is.na(subData[, .]))) {
-             isNA <- is.na(subData[, .])
-             subData <- subData[!isNA, ]
-             warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
-           }
-           if (any(subData[, .] == 0)) {
-             rowsWithoutZero <- which(subData[, .] == 0)
-             clean <- if (length(rowsWithoutZero) == 1 &&
-                          rowsWithoutZero == 1) {
-               subData[-1, ]
-             } else {
-               subData[-rowsWithoutZero[rowsWithoutZero != 1], ]
-             }
-           }
-           clean$cumN <- cumsum(clean[, .])
-           clean$propMax <- clean$cumN / max(clean$cumN)
-           rownames(clean) <- NULL
-           clean
-         })
-  names(cleans) <- paste0("clean_", c(...))
+  # NA values should be replaced with 0s
+  isNA <- is.na(data[, y])
+  replaceCall <- lazyeval::interp(~ replace(y, isNA, 0), y = as.name(y))
+  data <-
+    data %>%
+    mutate_(.dots = setNames(list(replaceCall), y))
+  if (sum(isNA) > 0) warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
 
-  structure(list(raw = data,
-                 clean = cleans),
-            class = "td")
+  # If there are multiple runs, we need to group the data
+  if (!is.null(runNo)) {
+    data <-
+      data %>%
+      group_by_(runNo)
+  }
+
+  # Filter out any 0s and calculate the cumulative sum of y and the proporiton
+  # for y
+  filtZeroCall <- lazyeval::interp(~ y != 0, y = as.name(y))
+  cumNCall <- lazyeval::interp(~ cumsum(y), y = as.name(y))
+  data <-
+    data %>%
+    filter_(.dots = setNames(list(filtZeroCall), y)) %>%
+    mutate_(.dots = setNames(list(cumNCall), "cumN")) %>%
+    mutate(propMax = cumN / max(cumN))
+
+  if (!is.null(runNo)) data <- data %>% ungroup()
+
+  out$clean <- data
+  structure(out, class = "td")
 }
 
 #' @export
 print.td <- function(x, ...) {
-  str(x$clean)
+  x$clean %>%
+    tbl_df %>%
+    print
 }
 
 #' @title Fit the Franco model

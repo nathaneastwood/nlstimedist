@@ -1,7 +1,7 @@
 Package: nlstimedist
 Type: Package
 Title: Non-linear model fitting of time distribution of biological phenomena
-Version: 0.0.1.9028
+Version: 0.0.1.9029
 Authors@R: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com",
          role = c("aut", "cre")),
@@ -20,14 +20,15 @@ Depends:
 Imports:
   assertr (>= 1.0.0),
   broom (>= 0.4.0),
+  dplyr (>= 0.4.3),
   ggplot2 (>= 2.1.0),
+  lazyeval (>= 0.2.0),
   minpack.lm (>= 1.2-0),
   nlstools (>= 1.0-2)
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Suggests:
-  dplyr,
   knitr,
   rmarkdown
 VignetteBuilder: knitr
