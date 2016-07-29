@@ -44,7 +44,7 @@ tdData <- function(data, x, y, runNo = NULL) {
   cumNCall <- lazyeval::interp(~ cumsum(y), y = as.name(y))
   data <-
     data %>%
-    filter_(.dots = setNames(list(filtZeroCall), y)) %>%
+    filter_(.dots = filtZeroCall) %>%
     mutate_(.dots = setNames(list(cumNCall), "cumN")) %>%
     mutate(propMax = cumN / max(cumN))
 
