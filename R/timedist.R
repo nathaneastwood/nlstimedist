@@ -6,7 +6,8 @@
 #' @param data The raw data to be cleaned.
 #' @param x The time variable.
 #' @param y The number of events.
-#' @param runNo The run number.
+#' @param group The run numbers. This is \code{NULL} by default if you are only
+#'   using the function for one run.
 #'
 #' @return
 #' A list containing
@@ -16,7 +17,12 @@
 #' }
 #'
 #' @export
-tdData <- function(data, x, y, runNo = NULL) {
+tdData <- function(data, x, y, group = NULL) {
+
+  if (!is.data.frame(data)) {
+    stop(paste0("Expecting a data.frame but receieved an object of class ",
+                class(data)))
+  }
 
   out <- list(raw = data)
 
@@ -32,10 +38,10 @@ tdData <- function(data, x, y, runNo = NULL) {
   if (sum(isNA) > 0) warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
 
   # If there are multiple runs, we need to group the data
-  if (!is.null(runNo)) {
+  if (!is.null(group)) {
     data <-
       data %>%
-      group_by_(runNo)
+      group_by_(group)
   }
 
   # Filter out any 0s and calculate the cumulative sum of y and the proporiton
@@ -48,7 +54,7 @@ tdData <- function(data, x, y, runNo = NULL) {
     mutate_(.dots = setNames(list(cumNCall), "cumN")) %>%
     mutate(propMax = cumN / max(cumN))
 
-  if (!is.null(runNo)) data <- data %>% ungroup()
+  if (!is.null(group)) data <- data %>% ungroup()
 
   out$clean <- data
   structure(out, class = "td")
