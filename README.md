@@ -1,5 +1,7 @@
 # nlstimedist
 
+[![Travis-CI Build Status](https://travis-ci.org/PlymouthUniversitySD/nlstimedist.svg?branch=master)](https://travis-ci.org/PlymouthUniversitySD/nlstimedist)
+
 Installation
 ------------
 
