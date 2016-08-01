@@ -4,7 +4,7 @@
 \alias{tdData}
 \title{Prepare \code{nlstimedist} data}
 \usage{
-tdData(data, x, y, runNo = NULL)
+tdData(data, x, y, group = NULL)
 }
 \arguments{
 \item{data}{The raw data to be cleaned.}
@@ -13,7 +13,8 @@ tdData(data, x, y, runNo = NULL)
 
 \item{y}{The number of events.}
 
-\item{runNo}{The run number.}
+\item{group}{The run numbers. This is \code{NULL} by default if you are only
+using the function for one run.}
 }
 \value{
 A list containing
