@@ -44,8 +44,8 @@ NULL
 #'   \item{Trees}{The number of trees}
 #' }
 #' @docType data
-#' @name trees
-#' @usage trees
+#' @name tilia
+#' @usage tilia
 #' @examples
-#' trees
+#' tilia
 NULL
