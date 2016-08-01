@@ -2,6 +2,7 @@
 
 S3method(glance,timedist)
 S3method(print,td)
+export("%>%")
 export(confint2)
 export(ggtimedistCDF)
 export(ggtimedistPDF)
@@ -19,4 +20,5 @@ export(timedist)
 import(ggplot2)
 importFrom(broom,augment)
 importFrom(broom,glance)
+importFrom(dplyr,"%>%")
 importFrom(nlstools,confint2)

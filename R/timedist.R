@@ -34,27 +34,28 @@ tdData <- function(data, x, y, group = NULL) {
   replaceCall <- lazyeval::interp(~ replace(y, isNA, 0), y = as.name(y))
   data <-
     data %>%
-    mutate_(.dots = setNames(list(replaceCall), y))
+    dplyr::mutate_(.dots = setNames(list(replaceCall), y))
   if (sum(isNA) > 0) warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
 
   # If there are multiple runs, we need to group the data
   if (!is.null(group)) {
     data <-
       data %>%
-      group_by_(group)
+      dplyr::group_by_(group)
   }
 
   # Filter out any 0s and calculate the cumulative sum of y and the proporiton
   # for y
   filtZeroCall <- lazyeval::interp(~ y != 0, y = as.name(y))
   cumNCall <- lazyeval::interp(~ cumsum(y), y = as.name(y))
+  propMaxCall <- lazyeval::interp(~ cumN / max(cumN), cumN = as.name("cumN"))
   data <-
     data %>%
-    filter_(.dots = filtZeroCall) %>%
-    mutate_(.dots = setNames(list(cumNCall), "cumN")) %>%
-    mutate(propMax = cumN / max(cumN))
+    dplyr::filter_(.dots = filtZeroCall) %>%
+    dplyr::mutate_(.dots = setNames(list(cumNCall), "cumN")) %>%
+    dplyr::mutate_(.dots = setNames(list(propMaxCall), "propMax"))
 
-  if (!is.null(group)) data <- data %>% ungroup()
+  if (!is.null(group)) data <- data %>% dplyr::ungroup()
 
   out$clean <- data
   structure(out, class = "td")
@@ -62,9 +63,7 @@ tdData <- function(data, x, y, group = NULL) {
 
 #' @export
 print.td <- function(x, ...) {
-  x$clean %>%
-    tbl_df %>%
-    print
+  print(dplyr::tbl_df(x$clean))
 }
 
 #' @title Fit the Franco model
