@@ -13,11 +13,7 @@ tdData(data, x, y, group = NULL)
 
 \item{y}{The number of events.}
 
-<<<<<<< HEAD
 \item{group}{The run numbers. This is \code{NULL} by default if you are only
-=======
-\item{runNo}{The run numbers. This is \code{NULL} by default if you are only
->>>>>>> fb0a9c24f2625bd05f897eea3ab04e84936e9030
 using the function for one run.}
 }
 \value{
