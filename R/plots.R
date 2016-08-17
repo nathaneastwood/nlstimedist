@@ -15,61 +15,138 @@ augmentMultiple <- function(...) {
          })
 }
 
-#' Plot the timedist CDF
+#' Plot the timedist PDF or CDF
 #'
 #' Given a model (or models) of class \code{timedist}, produce a cumulative
 #' distribution plot for each of them.
 #'
 #' @param ... A model (or a list of models) of class \code{timedist}.
+#' @param S Scaling factor for the PDF.
+#' @param xVals A sequence of values between the x limits (x1, x2) of the plot.
 #'
 #' @import ggplot2
 #' @importFrom broom augment
 #' @export
-ggtimedistCDF <- function(...) {
+tdCdfPlot <- function(..., S = NULL, xVals = NULL) {
+
   models <- list(...)
+  modelNames <- do.call("c", lapply(substitute(list(...))[-1], deparse))
+
+  # Check for valid values of S
+  if (any(S <= 0 | S > 1)) stop("S must be between 0 and 1")
+  if (is.null(S)) S <- rep(1, length(models))
+  if (length(S) != length(models)) {
+    if (length(S) == 1) {
+      S <- rep(S, length(models))
+    } else {
+      stop(paste0("Expecting the length of S to be either 1 or to match the ",
+                  "number of models (", length(models), ")."))
+    }
+  }
+
+  # Extract the data from the models
   if (length(models) == 1) {
     data <- broom::augment(...)
     colnames(data) <- c("x", "y", "fitted", "resid")
-    ggplot(data = data) +
-      geom_point(aes_string(x = "x", y = "y")) +
-      geom_line(aes_string(x = "x", y = "fitted"))
+    if (S != 1) data$y <- data$y * S
   } else {
-    data <- augmentMultiple(...)
-    modelNo <- paste0("model", rep(seq_along(data), lapply(data, nrow)))
-    data <- do.call("rbind", data)
-    data$group <- modelNo
-    ggplot(data = data, aes_string(x = "x", y = "y", colour = "group")) +
-      geom_point() +
-      geom_line(aes_string(x = "x", y = "fitted", colour = "group"))
+    multDat <- augmentMultiple(...)
+    if (any(S != 1)) {
+      multDatY <- lapply(seq_along(multDat), function(.) {
+        if (S[.] != 1) {
+          multDat[[.]]$y * S[.]
+        }
+      })
+    }
+    data <- do.call("rbind", multDat)
+    if (any(S != 1)){
+      data$y <- do.call("c", multDatY)
+    }
   }
+
+  # Generate values on the x-axis to create y-axis values
+  if (is.null(xVals)) {
+    xVals <- seq(min(data$x), max(data$x), by = max(data$x) / 1000)
+  }
+
+  cdfData <- lapply(
+    seq_along(models),
+    function (.) {
+      params <- models[[.]]$m$getPars()
+      data.frame(
+        fitted = tdCDF(xVals, S = S[.], params["r"], params["c"], params["t"]),
+        x = xVals
+      )
+    }
+  )
+  nRowsFit <- lapply(cdfData, nrow)
+  cdfData <- do.call("rbind", cdfData)
+  p <- if (length(models) > 1) {
+    cdfData$group <- rep(modelNames, nRowsFit)
+    nRows <- do.call("c", lapply(multDat, nrow))
+    data$group <- rep(modelNames, nRows)
+    ggplot() +
+      geom_point(data = data,
+                 aes_string(x = "x", y = "y", colour = "group")) +
+      geom_line(data = cdfData,
+                aes_string(x = "x", y = "fitted", colour = "group"))
+  } else {
+    ggplot() +
+      geom_point(data = data, aes_string(x = "x", y = "y")) +
+      geom_line(data = cdfData, aes_string(x = "x", y = "fitted"))
+  }
+  p
 }
 
-#' Plot the timedist PDF
-#'
 #' Given a model (or models) of class \code{timedist}, produce a probability
 #' density function plot for each of them.
 #'
-#' @param ... A model (or a list of models) of class \code{timedist}.
-#' @param xlim The x limits (x1, x2) of the plot.
-#'
-#' @import ggplot2
+#' @rdname tdCdfPlot
 #' @export
-ggtimedistPDF <- function(..., xlim = NULL) {
-  params <- lapply(list(...), function(.) .$m$getPars())
-  data <- augmentMultiple(...)
-  modelNo <- paste0("model", seq_along(data))
-  data <- do.call("rbind", data)
-  if (is.null(xlim)) {
-    xlim <- seq(min(data$x), max(data$x), by = max(data$x) / 1000)
+tdPdfPlot <- function(..., S = NULL, xVals = NULL) {
+
+  models <- list(...)
+  modelNames <- do.call("c", lapply(substitute(list(...))[-1], deparse))
+
+  # Check for valid values of S
+  if (any(S <= 0 | S > 1)) stop("S must be between 0 and 1")
+  if (is.null(S)) S <- rep(1, length(models))
+  if (length(S) != length(models)) {
+    if (length(S) == 1) {
+      S <- rep(S, length(models))
+    } else {
+      stop(paste0("Expecting the length of S to be either 1 or to match the ",
+                  "number of models (", length(models), ")."))
+    }
   }
-  pdfData <- lapply(params, function(.) {
-    data.frame(y = tdPDF(xlim, S = 1, .["r"], .["c"], .["t"]),
-               x = xlim)
-  })
+
+  # Extract the data from the models
+  if (length(models) == 1) {
+    data <- broom::augment(...)
+    colnames(data) <- c("x", "y", "fitted", "resid")
+  } else {
+    multDat <- augmentMultiple(...)
+    data <- do.call("rbind", multDat)
+  }
+
+  # Generate values on the x-axis to create y-axis values
+  if (is.null(xVals)) {
+    xVals <- seq(min(data$x), max(data$x), by = max(data$x) / 1000)
+  }
+
+  pdfData <- lapply(
+    seq_along(models),
+    function (.) {
+      params <- models[[.]]$m$getPars()
+      data.frame(
+        y = tdPDF(xVals, S = S[.], params["r"], params["c"], params["t"]),
+        x = xVals
+      )
+    }
+  )
   nRows <- lapply(pdfData, nrow)
   pdfData <- do.call("rbind", pdfData)
-  pdfData$group <- rep(modelNo, nRows)
-  models <- list(...)
+  pdfData$group <- rep(modelNames, nRows)
   p <- if (length(models) > 1) {
     ggplot(data = pdfData, aes_string(x = "x", y = "y", colour = "group")) +
       geom_line()
@@ -77,5 +154,6 @@ ggtimedistPDF <- function(..., xlim = NULL) {
     ggplot(data = pdfData, aes_string(x = "x", y = "y")) +
       geom_line()
   }
+
   p
 }

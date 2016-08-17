@@ -34,7 +34,7 @@ tdData <- function(data, x, y, group = NULL) {
   replaceCall <- lazyeval::interp(~ replace(y, isNA, 0), y = as.name(y))
   data <-
     data %>%
-    dplyr::mutate_(.dots = setNames(list(replaceCall), y))
+    dplyr::mutate_(.dots = stats::setNames(list(replaceCall), y))
   if (sum(isNA) > 0) warning(paste0("Replaced ", sum(isNA), " NAs with 0"))
 
   # If there are multiple runs, we need to group the data
@@ -52,8 +52,8 @@ tdData <- function(data, x, y, group = NULL) {
   data <-
     data %>%
     dplyr::filter_(.dots = filtZeroCall) %>%
-    dplyr::mutate_(.dots = setNames(list(cumNCall), "cumN")) %>%
-    dplyr::mutate_(.dots = setNames(list(propMaxCall), "propMax"))
+    dplyr::mutate_(.dots = stats::setNames(list(cumNCall), "cumN")) %>%
+    dplyr::mutate_(.dots = stats::setNames(list(propMaxCall), "propMax"))
 
   if (!is.null(group)) data <- data %>% dplyr::ungroup()
 
@@ -88,6 +88,8 @@ print.td <- function(x, ...) {
 #' @export
 timedist <- function(data, x, y, r, c, t, ...) {
 
+  if (class(data) == "td") data <- data$clean
+
   if (missing(y)) stop("y is missing")
   if (missing(x)) stop("x is missing")
 
@@ -102,7 +104,7 @@ timedist <- function(data, x, y, r, c, t, ...) {
                       " ~ ",
                       "1 - (1 - (r / (1 + exp(-c * (", x, " - t))))) ^ ", x)
 
-  model <- minpack.lm::nlsLM(as.formula(tdFormula),
+  model <- minpack.lm::nlsLM(stats::as.formula(tdFormula),
                              data = data,
                              start = start, ...)
   params <- model$m$getPars()
