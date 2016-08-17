@@ -1,6 +1,6 @@
 # nlstimedist
 
-[![Travis-CI Build Status](https://travis-ci.org/PlymouthUniversitySD/nlstimedist.svg?branch=master)](https://travis-ci.org/PlymouthUniversitySD/nlstimedist)
+[![Travis-CI Build Status](https://travis-ci.org/NattyE/nlstimedist.svg?branch=develop)](https://travis-ci.org/NattyE/nlstimedist)
 
 Installation
 ------------
@@ -20,6 +20,5 @@ devtools::install_github("NattyE/nlstimedist")
 To install the package with the vignettes:
 
 ``` r
-devtools::install_github("NattyE/nlstimedist",
-                         build_vignettes = TRUE)
+devtools::install_github("NattyE/nlstimedist", build_vignettes = TRUE)
 ```
