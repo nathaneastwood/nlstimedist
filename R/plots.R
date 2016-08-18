@@ -49,7 +49,7 @@ tdCdfPlot <- function(..., S = NULL, xVals = NULL) {
   # Extract the data from the models
   if (length(models) == 1) {
     data <- broom::augment(...)
-    nameMod <- ...$m$getVars()
+    nameMod <- list(...)[[1]]$m$getVars()
     data <- data[, c(nameMod, ".fitted", ".resid")]
     colnames(data) <- c("x", "y", "fitted", "resid")
     if (S != 1) data$y <- data$y * S

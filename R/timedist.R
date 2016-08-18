@@ -87,8 +87,7 @@ print.td <- function(x, ...) {
 #'
 #' @export
 timedist <- function(data, x, y, r, c, t, ...) {
-
-  if (class(data) == "td") data <- data$clean
+  if ("td" %in% class(data)) data <- data$clean
 
   if (missing(y)) stop("y is missing")
   if (missing(x)) stop("x is missing")
