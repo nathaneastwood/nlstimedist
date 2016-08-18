@@ -108,11 +108,14 @@ timedist <- function(data, x, y, r, c, t, ...) {
                              data = data,
                              start = start, ...)
   params <- model$m$getPars()
-  model$m$moments <- tdMoments(r = params["r"],
-                               c = params["c"],
-                               t = params["t"])
-  model$m$ymax <- max(get(y, model$m$getEnv()))
-  model$m$rss <- tdRSS(model)
+
+  modMoments <- tdMoments(r = params["r"],
+                          c = params["c"],
+                          t = params["t"])
+  model$m$getMoments <- function () modMoments
+  model$m$getVars <- function () c(x = x, y = y)
+  model$m$ymax <- function() max(get(y, model$m$getEnv()))
+  model$m$rss <- function() tdRSS(model)
 
   structure(model,
             class = c("timedist", "nls"))
