@@ -1,7 +1,7 @@
 Package: nlstimedist
 Type: Package
 Title: Non-linear model fitting of time distribution of biological phenomena
-Version: 0.0.2.9008
+Version: 0.0.2.9009
 Authors@R: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com",
          role = c("aut", "cre")),
