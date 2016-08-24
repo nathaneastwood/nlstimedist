@@ -1,6 +1,9 @@
 #' Fit the time-course of biological phenomena
 #'
-#' \pkg{timedist} allows you to...
+#' \pkg{timedist} fits a biologically meaningful distribution function to
+#' time-sequence data (phenology), estimates parameters to draw the cumulative
+#' distribution function and probability density function and calculates
+#' standard statistical moments and percentiles.
 #'
 #' @docType package
 #' @name timedist
