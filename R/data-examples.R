@@ -3,12 +3,16 @@
 #' This data describes the number of germinating lobelia urens seeds at
 #' different temperatures.
 #'
-#' @format A data frame with 238 rows and 3 variables:
+#' @format A data frame with 231 rows and 3 variables:
 #' \describe{
 #'   \item{Day}{The day number}
 #'   \item{Temperature}{The temperature}
 #'   \item{Germination}{The number which germinated}
 #' }
+#' @details
+#' The total numbers which failed to germinate are 59, 52, 35, 22, 10, 7 and 12
+#' for temperatures 9.8, 12.5, 16.7, 20.2, 24.3, 28.5 and 32.0, respectively.
+#'
 #' @docType data
 #' @name lobelia
 #' @usage lobelia
