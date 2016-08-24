@@ -2,4 +2,8 @@
 .Rhistory
 .RData
 inst/doc
+<<<<<<< HEAD
 .DS_Store
+=======
+.DS_Store
+>>>>>>> develop

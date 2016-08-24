@@ -33,7 +33,8 @@ tdMean <- function(r, c, t, upper = t * 10, ...) {
   meanFn <- function(x, r, c, t) {
     1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)
   }
-  integrate(meanFn, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
+  stats::integrate(meanFn, lower = 0, upper = upper,
+                   r = r, c = c, t = t, ...)$value
 }
 
 #' @rdname tdMoments
@@ -47,8 +48,8 @@ tdVariance <- function(r, c, t, upper = t * 10, ...) {
   varFn <- function(x, r, c, t) {
     x * (1 - ((1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)))
   }
-  2 * integrate(varFn, lower = 0, upper = upper,
-                r = r, c = c, t = t, ...)$value -
+  2 * stats::integrate(varFn, lower = 0, upper = upper,
+                       r = r, c = c, t = t, ...)$value -
     (tdMean(r = r, c = c, t = t, ...) ^ 2)
 }
 
@@ -66,8 +67,8 @@ tdSkew <- function(r, c, t, upper = t * 10, ...) {
   skewFn <- function(x, r, c, t) {
     (x ^ 2) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
   }
-  integrand <- 3 * integrate(skewFn, lower = 0, upper = upper,
-                             r = r, c = c, t = t,  ...)$value
+  integrand <- 3 * stats::integrate(skewFn, lower = 0, upper = upper,
+                                    r = r, c = c, t = t,  ...)$value
   ((omega ^ 3) / (mmean ^ 3)) * integrand - omega * (3 + omega ^ 2)
 }
 
@@ -87,14 +88,14 @@ tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
   kurt_franco <- function(x, r, c, t) {
     (x ^ 3) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
   }
-  integrand <- 4 * integrate(kurt_franco, lower = 0, upper = upper,
-                             r = r, c = c, t = t,  ...)$value
+  integrand <- 4 * stats::integrate(kurt_franco, lower = 0, upper = upper,
+                                    r = r, c = c, t = t,  ...)$value
   if (alternative) {
     skewFn <- function(x, r, c, t) {
       (x ^ 2) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
     }
-    ex3 <- 3 * integrate(skewFn, lower = 0, upper = upper,
-                         r = r, c = c, t = t,  ...)$value
+    ex3 <- 3 * stats::integrate(skewFn, lower = 0, upper = upper,
+                                r = r, c = c, t = t,  ...)$value
     ((omega ^ 4) / (mmean ^ 4)) * integrand - 4 * ((omega ^ 4) / (mmean ^ 3)) *
       ex3 + (3 * omega ^ 2) * (2 + omega ^ 2) - 3
   } else {
@@ -123,5 +124,6 @@ tdEntropy <- function(r, c, t, upper = t * 10, ...) {
                 (((1 + exp(-c * (x - t))) ^ 2) *
                    (1 - (r / (1 + exp(-c * (x - t)))))))) / log(2))
   }
-  -integrate(entFn, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
+  -stats::integrate(entFn, lower = 0, upper = upper,
+                    r = r, c = c, t = t, ...)$value
 }

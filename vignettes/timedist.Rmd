@@ -128,16 +128,16 @@ lm2
 Again, you should find that this fit matches the Excel sheet you sent me.
 
 ## Plotting
-The PDF and CDF plots are generated for a model, or list of models, using the `ggtimedistPDF()` and `ggtimedistPDF()` functions. 
+The PDF and CDF plots are generated for a model, or list of models, using the `tdPdfPlot()` and `tdPdfPlot()` functions. 
 
 ```{r, fig.height = 6, fig.width = 6, fig.align = 'center'}
-ggtimedistCDF(lm1, lm2)
+tdCdfPlot(lm1, lm2)
 ```
 
 And the pdfs...
 
 ```{r, fig.height = 6, fig.width = 6, fig.align = 'center'}
-ggtimedistPDF(lm1, lm2)
+tdPdfPlot(lm1, lm2)
 ```
 
 These plots have been written in `ggplot2` and are therefore highly customisable.

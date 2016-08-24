@@ -1,5 +1,9 @@
 # nlstimedist
 
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+[![Travis-CI Build Status](https://travis-ci.org/NattyE/nlstimedist.svg?branch=develop)](https://travis-ci.org/NattyE/nlstimedist)
+[![codecov](https://codecov.io/gh/NattyE/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/NattyE/nlstimedist)
+
 Installation
 ------------
 
@@ -12,14 +16,11 @@ install.packages("devtools")
 Then use the following code:
 
 ``` r
-devtools::install_github("PlymouthUniversitySD/nlstimedist", 
-                         auth_token = "26c2099ce9d1cad34c85951733fd23d11ce63c55")
+devtools::install_github("NattyE/nlstimedist")
 ```
 
 To install the package with the vignettes:
 
 ``` r
-devtools::install_github("PlymouthUniversitySD/nlstimedist",
-                         auth_token = "26c2099ce9d1cad34c85951733fd23d11ce63c55",
-                         build_vignettes = TRUE)
+devtools::install_github("NattyE/nlstimedist", build_vignettes = TRUE)
 ```

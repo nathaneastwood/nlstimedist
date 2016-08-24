@@ -27,6 +27,10 @@ Fit the Franco model
 \details{
 The \code{\link[minpack.lm]{nlsLM}} function is used instead of the
   \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt
-  algorithm because...
+  algorithm which is an extremely robust method of curve-fitting as it is
+  able to switch between Gauss-Newton and gradient descent. This allows it to
+  cope with far-off-optimal starting values. The standard nls function does
+  not use Levenberg-Marquardt; it instead uses the Gauss-Newton type, the
+  PORT routines and a partial linear fit.
 }
 

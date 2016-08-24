@@ -2,6 +2,7 @@
 % Please edit documentation in R/utils.R
 \docType{import}
 \name{reexports}
+\alias{\%>\%}
 \alias{confint2}
 \alias{reexports}
 \title{Objects exported from other packages}
@@ -10,6 +11,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{dplyr}{\code{\link[dplyr]{\%>\%}}}
+
   \item{nlstools}{\code{\link[nlstools]{confint2}}}
 }}
 \keyword{internal}

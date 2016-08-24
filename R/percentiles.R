@@ -23,13 +23,13 @@ tdPercentiles <- function(model, n, upper = model$m$getPars()["t"] * 10, ...) {
   vals <- if (length(n) > 1) {
     do.call("c",
             lapply(n, function (x) {
-              uniroot(percentile, lower = 0, upper = upper, y = x,
-                      r = params["r"], c = params["c"],
-                      t = params["t"], ...)$root
+              stats::uniroot(percentile, lower = 0, upper = upper, y = x,
+                             r = params["r"], c = params["c"],
+                             t = params["t"], ...)$root
             }))
   } else {
-    uniroot(percentile, lower = 0, upper = upper, y = n, r = params["r"],
-            c = params["c"], t = params["t"], ...)$root
+    stats::uniroot(percentile, lower = 0, upper = upper, y = n, r = params["r"],
+                   c = params["c"], t = params["t"], ...)$root
   }
   names(vals) <- paste0(n * 100, "%")
   vals
