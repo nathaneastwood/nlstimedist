@@ -26,7 +26,7 @@ tdData <- function(data, x, y, group = NULL) {
 
   out <- list(raw = data)
 
-  testNum <- apply(data, 2, is.numeric)
+  testNum <- apply(data[, c(x, y)], 2, is.numeric)
   if (FALSE %in% testNum) stop("Data are not numeric")
 
   # NA values should be replaced with 0s
