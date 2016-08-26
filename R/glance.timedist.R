@@ -16,7 +16,7 @@
 #'   \item{df.residual}{residual degrees of freedom}
 #'   \item{RSS}{corrected residual sum of squares}
 #'
-#' @importFrom broom glance
+#' @import broom
 #'
 #' @export
 glance.timedist <- function(x, ...) {
