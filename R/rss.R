@@ -9,7 +9,7 @@
 #'
 #' @export
 tdRSS <- function(model) {
-  yParam <- unname(tdLobelia12.5$m$getVars()["y"])
+  yParam <- unname(model$m$getVars()["y"])
   yDat <- unlist(as.list(model$m$getEnv())[yParam])
   1 - sum((yDat - model$m$fitted()) ^ 2) / sum((yDat - mean(yDat)) ^ 2)
 }

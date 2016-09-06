@@ -1,7 +1,7 @@
 Package: nlstimedist
 Type: Package
 Title: Non-linear model fitting of time distribution of biological phenomena
-Version: 0.0.2.9014
+Version: 0.0.2.9015
 Authors@R: c(
   person("Nathan", "Eastwood", , "neastwood@mango-solutions.com",
          role = c("aut", "cre")),
@@ -16,10 +16,10 @@ Description: nlstimedist fits a biologically meaningful distribution function to
 URL: https://github.com/PlymouthUniversitySD/nlstimedist
 BugReports: https://github.com/PlymouthUniversitySD/nlstimedist/issues
 Depends:
-  R (>= 3.1.2)
+  R (>= 3.1.2),
+  broom (>= 0.4.1)
 Imports:
   assertr (>= 1.0.0),
-  broom (>= 0.4.0),
   dplyr (>= 0.4.3),
   ggplot2 (>= 2.1.0),
   lazyeval (>= 0.2.0),
