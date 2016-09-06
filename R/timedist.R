@@ -39,9 +39,10 @@ tdData <- function(data, x, y, group = NULL) {
 
   # If there are multiple runs, we need to group the data
   if (!is.null(group)) {
+    groupDots <- lapply(group, as.symbol)
     data <-
       data %>%
-      dplyr::group_by_(group)
+      dplyr::group_by_(.dots = groupDots)
   }
 
   # Filter out any 0s and calculate the cumulative sum of y and the proporiton
