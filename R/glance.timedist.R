@@ -16,6 +16,7 @@
 #'   \item{df.residual}{residual degrees of freedom}
 #'   \item{RSS}{corrected residual sum of squares}
 #'
+#' @importFrom broom glance
 #' @export
 glance.timedist <- function(x, ...) {
   class(x) <- "nls"
