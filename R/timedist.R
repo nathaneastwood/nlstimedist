@@ -93,12 +93,13 @@ timedist <- function(data, x, y, r, c, t, ...) {
   if (missing(y)) stop("y is missing")
   if (missing(x)) stop("x is missing")
 
-  start <- list(r = r, c = c, t = t)
+  if (r <= 0 | r > 1) {
+    stop("r must be greater than 0 or less than or equal to 1")
+  }
+  if (c <= 0) stop("c must be greater than 0")
+  if (t < 0) stop("t must be greater than or equal to 0")
 
-  assertr::verify(start, r > 0)
-  assertr::verify(start, r <= 1)
-  assertr::verify(start, c > 0)
-  assertr::verify(start, t >= 0)
+  start <- list(r = r, c = c, t = t)
 
   tdFormula <- paste0(y,
                       " ~ ",

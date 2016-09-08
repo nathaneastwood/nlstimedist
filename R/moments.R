@@ -26,10 +26,6 @@ tdMoments <- function(r, c, t, ...) {
 #' @export
 tdMean <- function(r, c, t, upper = t * 10, ...) {
   vars <- list(r = r, c = c, t = t)
-  assertr::verify(vars, r > 0)
-  assertr::verify(vars, r <= 1)
-  assertr::verify(vars, c > 0)
-  assertr::verify(vars, t >= 0)
   meanFn <- function(x, r, c, t) {
     1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)
   }
@@ -41,10 +37,6 @@ tdMean <- function(r, c, t, upper = t * 10, ...) {
 #' @export
 tdVariance <- function(r, c, t, upper = t * 10, ...) {
   vars <- list(r = r, c = c, t = t)
-  assertr::verify(vars, r > 0)
-  assertr::verify(vars, r <= 1)
-  assertr::verify(vars, c > 0)
-  assertr::verify(vars, t >= 0)
   varFn <- function(x, r, c, t) {
     x * (1 - ((1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)))
   }
@@ -57,10 +49,6 @@ tdVariance <- function(r, c, t, upper = t * 10, ...) {
 #' @export
 tdSkew <- function(r, c, t, upper = t * 10, ...) {
   vars <- list(r = r, c = c, t = t)
-  assertr::verify(vars, r > 0)
-  assertr::verify(vars, r <= 1)
-  assertr::verify(vars, c > 0)
-  assertr::verify(vars, t >= 0)
   omega <- tdMean(r = r, c = c, t = t, ...) /
     sqrt(tdVariance(r = r, c = c, t = t, ...))
   mmean <- tdMean(r = r, c = c, t = t, ...)
@@ -77,10 +65,6 @@ tdSkew <- function(r, c, t, upper = t * 10, ...) {
 #' @export
 tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
   vars <- list(r = r, c = c, t = t)
-  assertr::verify(vars, r > 0)
-  assertr::verify(vars, r <= 1)
-  assertr::verify(vars, c > 0)
-  assertr::verify(vars, t >= 0)
   omega <- tdMean(r = r, c = c, t = t, ...) /
     sqrt(tdVariance(r = r, c = c, t = t, ...))
   mmean <- tdMean(r = r, c = c, t = t, ...)
@@ -108,10 +92,6 @@ tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
 #' @export
 tdEntropy <- function(r, c, t, upper = t * 10, ...) {
   vars <- list(r = r, c = c, t = t)
-  assertr::verify(vars, r > 0)
-  assertr::verify(vars, r <= 1)
-  assertr::verify(vars, c > 0)
-  assertr::verify(vars, t >= 0)
   entFn <- function(x, r, c, t) {
     (-((1 - (r / (1 + exp(-c * (x - t))))) ^ x) *
        (log(1 - (r / (1 + exp(-c * (x - t))))) -
