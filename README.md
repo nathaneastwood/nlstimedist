@@ -13,3 +13,11 @@ Installation
 devtools::install_github("NattyE/nlstimedist")
 ```
 
+Usage
+-----
+
+Please refer to the vignette
+
+``` r
+vignette(nlstimedist)
+```

@@ -1,11 +1,6 @@
 ---
 title: "Package Overview"
-author: "Nathan Eastwood"
-date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette:
-    toc: true
-    number_sections: true
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Package Overview}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,13 +10,13 @@ vignette: >
 ```{r, include = FALSE}
 library(nlstimedist)
 knitr::opts_chunk$set(collapse = TRUE,
-                      comment = NA)
+                      comment = "#>")
 ```
   
 # Fitting the time-course of the leafing phenology of lime trees
 
 ## Preparing the data
-Data should be in tidy format. `timedist` provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
+Data should be in tidy format. `nlstimedist` provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
 
 ```{r}
 head(tilia)
