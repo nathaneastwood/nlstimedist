@@ -1,1 +1,4 @@
+coverage:
+  ignore: R/plots.R
+
 comment: false
