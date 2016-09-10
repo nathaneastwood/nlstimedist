@@ -9,9 +9,9 @@ Authors@R: c(
   person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "ctb"),
   person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "ctb")
   )
-Description: nlstimedist fits a biologically meaningful distribution function to
-  time-sequence data (phenology), estimates parameters to draw the cumulative
-  distribution function and probability density function and calculates standard
+Description: Fit biologically meaningful distribution functions to
+  time-sequence data (phenology), estimate parameters to draw the cumulative
+  distribution function and probability density function and calculate standard
   statistical moments and percentiles.
 URL: https://github.com/PlymouthUniversitySD/nlstimedist
 BugReports: https://github.com/PlymouthUniversitySD/nlstimedist/issues
