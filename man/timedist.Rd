@@ -29,4 +29,11 @@ The \code{\link[minpack.lm]{nlsLM}} function is used instead of the
   not use Levenberg-Marquardt; it instead uses the Gauss-Newton type, the
   PORT routines and a partial linear fit.
 }
+\examples{
+tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
+                  t = 120)
+model
+
+}
 

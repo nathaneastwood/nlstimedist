@@ -40,4 +40,14 @@ A single value, or in the case of \code{tdMoments}, a
 Individual functions are provided as well as a wrapper to
 calculate the moments for your fitted model.
 }
+\examples{
+tdMoments(r = 0.1, c = 0.5, t = 120)
+
+tdMean(r = 0.1, c = 0.5, t = 120)
+tdVariance(r = 0.1, c = 0.5, t = 120)
+tdSkew(r = 0.1, c = 0.5, t = 120)
+tdKurtosis(r = 0.1, c = 0.5, t = 120)
+tdKurtosis(r = 0.1, c = 0.5, t = 120, alternative = TRUE)
+tdEntropy(r = 0.1, c = 0.5, t = 120)
+}
 

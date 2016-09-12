@@ -10,6 +10,9 @@
 #' @return A single value, or in the case of \code{tdMoments}, a
 #'   \code{data.frame} of values.
 #'
+#' @examples
+#' tdMoments(r = 0.1, c = 0.5, t = 120)
+#'
 #' @export
 tdMoments <- function(r, c, t, ...) {
   data.frame("mean" = tdMean(r = r, c = c, t = t, ...),
@@ -22,6 +25,8 @@ tdMoments <- function(r, c, t, ...) {
 
 #' @param upper The upper limit of integration. Defaults to \code{t * 10}. Can
 #'   be infinite for all moment functions except for entropy.
+#' @examples
+#' tdMean(r = 0.1, c = 0.5, t = 120)
 #' @rdname tdMoments
 #' @export
 tdMean <- function(r, c, t, upper = t * 10, ...) {
@@ -33,6 +38,8 @@ tdMean <- function(r, c, t, upper = t * 10, ...) {
                    r = r, c = c, t = t, ...)$value
 }
 
+#' @examples
+#' tdVariance(r = 0.1, c = 0.5, t = 120)
 #' @rdname tdMoments
 #' @export
 tdVariance <- function(r, c, t, upper = t * 10, ...) {
@@ -45,6 +52,8 @@ tdVariance <- function(r, c, t, upper = t * 10, ...) {
     (tdMean(r = r, c = c, t = t, ...) ^ 2)
 }
 
+#' @examples
+#' tdSkew(r = 0.1, c = 0.5, t = 120)
 #' @rdname tdMoments
 #' @export
 tdSkew <- function(r, c, t, upper = t * 10, ...) {
@@ -61,6 +70,9 @@ tdSkew <- function(r, c, t, upper = t * 10, ...) {
 }
 
 #' @param alternative An alternative calculation method.
+#' @examples
+#' tdKurtosis(r = 0.1, c = 0.5, t = 120)
+#' tdKurtosis(r = 0.1, c = 0.5, t = 120, alternative = TRUE)
 #' @rdname tdMoments
 #' @export
 tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
@@ -88,6 +100,8 @@ tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
   }
 }
 
+#' @examples
+#' tdEntropy(r = 0.1, c = 0.5, t = 120)
 #' @rdname tdMoments
 #' @export
 tdEntropy <- function(r, c, t, upper = t * 10, ...) {

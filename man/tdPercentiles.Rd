@@ -20,10 +20,12 @@ tdPercentiles(model, n, upper = model$m$getPars()["t"] * 10, ...)
 Calculate the percentiles for a given model output
 }
 \examples{
-\dontrun{
+tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
+                  t = 120)
+model
 tdPercentiles(model, n = 0.5)
 tdPercentiles(model, n = seq(0, 0.9, 0.1))
-}
 
 }
 

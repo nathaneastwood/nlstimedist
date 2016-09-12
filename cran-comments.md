@@ -1,3 +1,8 @@
+## Second Resubmission
+This is a second resubmission. In this version I have:
+
+* Added more examples and ensured existing examples now run.
+
 ## Resubmission
 This is a resubmission. In this version I have:
 

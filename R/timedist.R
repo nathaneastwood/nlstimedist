@@ -16,6 +16,10 @@
 #'   \item clean item The cleaned data to be supplied to \code{timedist}.
 #' }
 #'
+#' @examples
+#' tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+#' tdTilia
+#'
 #' @export
 tdData <- function(data, x, y, group = NULL) {
 
@@ -85,6 +89,12 @@ print.td <- function(x, ...) {
 #'   cope with far-off-optimal starting values. The standard nls function does
 #'   not use Levenberg-Marquardt; it instead uses the Gauss-Newton type, the
 #'   PORT routines and a partial linear fit.
+#'
+#' @examples
+#' tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+#' model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
+#'                   t = 120)
+#' model
 #'
 #' @export
 timedist <- function(data, x, y, r, c, t, ...) {

@@ -26,6 +26,12 @@ augmentMultiple <- function(...) {
 #' @param S Scaling factor for the PDF.
 #' @param xVals A sequence of values between the x limits (x1, x2) of the plot.
 #'
+#' @examples
+#' tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+#' model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
+#'                   t = 120)
+#' tdCdfPlot(model)
+#'
 #' @import ggplot2
 #' @importFrom broom augment
 #' @export
@@ -104,6 +110,9 @@ tdCdfPlot <- function(..., S = NULL, xVals = NULL) {
 
 #' Given a model (or models) of class \code{timedist}, produce a probability
 #' density function plot for each of them.
+#'
+#' @examples
+#' tdPdfPlot(model)
 #'
 #' @rdname tdCdfPlot
 #' @export

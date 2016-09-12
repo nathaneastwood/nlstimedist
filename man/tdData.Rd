@@ -27,4 +27,9 @@ A list containing
 The data for \code{nlstimedist} needs to be in a particular format. This
 function prepares the data for the model.
 }
+\examples{
+tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+tdTilia
+
+}
 

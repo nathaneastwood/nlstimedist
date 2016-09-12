@@ -7,6 +7,13 @@
 #'
 #' @return A single value.
 #'
+#' @examples
+#' tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+#' model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
+#'                   t = 120)
+#' model
+#' tdRSS(model)
+#'
 #' @export
 tdRSS <- function(model) {
   yParam <- unname(model$m$getVars()["y"])
