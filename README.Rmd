@@ -1,0 +1,91 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r opts, echo = FALSE}
+library(nlstimedist)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+
+```
+
+# nlstimedist
+
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Travis-CI Build Status](https://travis-ci.org/NattyE/nlstimedist.svg?branch=master)](https://travis-ci.org/NattyE/nlstimedist)
+[![codecov](https://codecov.io/gh/NattyE/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/NattyE/nlstimedist)
+
+nlstimedist fits a biologically meaningful distribution function to time-sequence data (phenology), estimates parameters to draw the cumulative distribution function and probability density function and calculates standard statistical moments and percentiles.
+
+# Installation
+
+You can install:
+
+* the latest released version from CRAN with
+
+```{r cran, eval = FALSE}
+install.packages("nlstimedist")
+```
+
+* the latest development version from GitHub with
+
+```{r gh, eval = FALSE}
+devtools::install_github("NattyE/nlstimedist")
+```
+
+# Usage
+
+## Preparing the data
+Data should be in tidy format. `nlstimedist` provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
+
+```{r data}
+head(tilia)
+```
+
+We first need to calculate the cumulative number of trees as well as the proportions. We do this using the `tdData` function.
+
+```{r tidy}
+tdTilia <- tdData(tilia, x = "Day", y = "Trees")
+tdTilia
+```
+
+## Fitting the model
+We fit the model to the proportion of the cumulative number of trees (`propMax`) in the `tdTilia` data using the `timedist` function.
+
+```{r model}
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
+model
+```
+
+## Extracting the moments
+We can extract the mean, variance, standard deviation, skew, kurtosis and entropy of the model as follows.
+
+```{r moments}
+model$m$getMoments()
+```
+
+## Extracting the RSS
+Similarly we can extract the RSS of the model
+
+```{r rss}
+model$m$rss()
+```
+
+## Plotting the PDF and CDF
+The pdf and cdf of the model have their own plotting functions.
+
+```{r pdfPlot}
+tdPdfPlot(model)
+```
+
+```{r cdfPlot}
+tdCdfPlot(model)
+```
+
+# Citation
+Franco, M. (2012). *The time-course of biological phenomenon - illustrated with the London Marathon*. Unpublished manuscript. Plymouth University.
