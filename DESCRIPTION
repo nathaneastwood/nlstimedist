@@ -1,7 +1,7 @@
 Package: nlstimedist
 Type: Package
 Title: Non-Linear Model Fitting of Time Distribution of Biological Phenomena
-Version: 1.0.1
+Version: 1.0.1.9000
 Authors@R: c(
   person("Nathan", "Eastwood", , "nathan.eastwood@icloud.com",
          role = c("aut", "cre")),
@@ -13,8 +13,8 @@ Description: Fit biologically meaningful distribution functions to
   time-sequence data (phenology), estimate parameters to draw the cumulative
   distribution function and probability density function and calculate standard
   statistical moments and percentiles.
-URL: https://github.com/PlymouthUniversitySD/nlstimedist
-BugReports: https://github.com/PlymouthUniversitySD/nlstimedist/issues
+URL: https://github.com/NattyE/nlstimedist
+BugReports: https://github.com/NattyE/nlstimedist/issues
 Depends:
   R (>= 3.1.2)
 Imports:
