@@ -92,8 +92,8 @@ tdCdfPlot <- function(..., S = NULL, xVals = NULL) {
   nRowsFit <- lapply(cdfData, nrow)
   cdfData <- do.call("rbind", cdfData)
   p <- if (length(models) > 1) {
-    cdfData$group <- rep(modelNames, nRowsFit)
-    nRows <- do.call("c", lapply(multDat, nrow))
+    cdfData$group <- rep(modelNames, as.integer(nRowsFit))
+    nRows <- as.integer(lapply(multDat, nrow))
     data$group <- rep(modelNames, nRows)
     ggplot() +
       geom_point(data = data,
@@ -157,7 +157,7 @@ tdPdfPlot <- function(..., S = NULL, xVals = NULL) {
       )
     }
   )
-  nRows <- lapply(pdfData, nrow)
+  nRows <- as.integer(lapply(pdfData, nrow))
   pdfData <- do.call("rbind", pdfData)
   pdfData$group <- rep(modelNames, nRows)
   p <- if (length(models) > 1) {
