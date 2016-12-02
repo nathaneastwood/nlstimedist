@@ -1,7 +1,7 @@
 ## Third submission
-This is the third submission. In this version I have:
+This is the fourth submission. In this version I have:
 
-* Fixed the r-devel "invalid 'times' argument"
+* Updated links that pointed to an old GitHub user name
 
 ## Test environments
 * local OS X install, R 3.3.2
