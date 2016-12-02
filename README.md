@@ -3,7 +3,7 @@
 nlstimedist
 ===========
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis-CI Build Status](https://travis-ci.org/NattyE/nlstimedist.svg?branch=master)](https://travis-ci.org/NattyE/nlstimedist) [![codecov](https://codecov.io/gh/NattyE/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/NattyE/nlstimedist)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis-CI Build Status](https://travis-ci.org/nathaneastwood/nlstimedist.svg?branch=master)](https://travis-ci.org/nathaneastwood/nlstimedist) [![](http://www.r-pkg.org/badges/version/nlstimedist)](http://www.r-pkg.org/pkg/nlstimedist) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/nlstimedist)](http://www.r-pkg.org/pkg/remotes) [![codecov](https://codecov.io/gh/nathaneastwood/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/nathaneastwood/nlstimedist)
 
 nlstimedist fits a biologically meaningful distribution function to time-sequence data (phenology), estimates parameters to draw the cumulative distribution function and probability density function and calculates standard statistical moments and percentiles.
 
@@ -21,7 +21,7 @@ install.packages("nlstimedist")
 -   the latest development version from GitHub with
 
 ``` r
-devtools::install_github("NattyE/nlstimedist")
+devtools::install_github("nathaneastwood/nlstimedist")
 ```
 
 Usage
