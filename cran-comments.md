@@ -1,7 +1,9 @@
-## Fourth submission
-This is the fourth submission. In this version I have:
+## Fifth submission
+This is the fifth submission. In this version I have:
 
-* Updated links that pointed to an old GitHub user name
+* Added a vignette
+
+Note: Non-standard files exist at the top level for the 
 
 ## Test environments
 * local OS X install, R 3.3.2
@@ -11,8 +13,6 @@ This is the fourth submission. In this version I have:
 ## R CMD check results
 R CMD check results
 0 errors | 0 warnings | 0 notes
-
-R CMD check succeeded
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package

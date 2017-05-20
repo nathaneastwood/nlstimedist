@@ -1,7 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
-^codecov.yml$
-cran-comments.md
+^cran-comments\.md$
 ^README\.Rmd$
 ^README-.*\.png$
+^codecov\.yml$
+^\.travis\.yml$
+.Rprofile
