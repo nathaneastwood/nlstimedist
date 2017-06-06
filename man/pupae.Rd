@@ -20,4 +20,3 @@ different cohorts.
 \examples{
 pupae
 }
-

@@ -113,13 +113,13 @@ The pdf and cdf of the model have their own plotting functions.
 tdPdfPlot(model)
 ```
 
-![](README-pdfPlot-1.png)
+![](tools/images/README-pdfPlot-1.png)
 
 ``` r
 tdCdfPlot(model)
 ```
 
-![](README-cdfPlot-1.png)
+![](tools/images/README-cdfPlot-1.png)
 
 Citation
 ========

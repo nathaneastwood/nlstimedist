@@ -24,4 +24,3 @@ for temperatures 9.8, 12.5, 16.7, 20.2, 24.3, 28.5 and 32.0, respectively.
 \examples{
 lobelia
 }
-

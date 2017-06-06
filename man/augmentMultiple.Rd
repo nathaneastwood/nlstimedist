@@ -12,4 +12,3 @@ augmentMultiple(...)
 \description{
 Augment the data from a model output to be in a form suitable for ggplot
 }
-

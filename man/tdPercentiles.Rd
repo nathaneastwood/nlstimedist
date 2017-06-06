@@ -28,4 +28,3 @@ tdPercentiles(model, n = 0.5)
 tdPercentiles(model, n = seq(0, 0.9, 0.1))
 
 }
-

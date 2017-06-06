@@ -11,4 +11,3 @@ time-sequence data (phenology), estimates parameters to draw the cumulative
 distribution function and probability density function and calculates
 standard statistical moments and percentiles.
 }
-

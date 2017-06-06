@@ -36,4 +36,3 @@ model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
 model
 
 }
-

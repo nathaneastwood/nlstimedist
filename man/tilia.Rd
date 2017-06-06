@@ -18,4 +18,3 @@ This data describes the leafing phenology of lime trees (tilia cordata).
 \examples{
 tilia
 }
-

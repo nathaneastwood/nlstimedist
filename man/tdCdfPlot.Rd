@@ -32,4 +32,3 @@ tdCdfPlot(model)
 tdPdfPlot(model)
 
 }
-

@@ -32,4 +32,3 @@ tdTilia <- tdData(tilia, x = "Day", y = "Trees")
 tdTilia
 
 }
-

@@ -1,7 +1,11 @@
 ## Fifth submission
-This is the fifth submission. In this version I have:
+This is a resubmission the fifth submission. In this version I have:
 
 * Added a vignette
+* Fixed missing images from the README. These now live in tools/images
+
+NOTE: The check states there is a possibly misspelled word: phenology; this is, 
+however, correct.
 
 Note: Non-standard files exist at the top level for the 
 
