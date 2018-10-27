@@ -19,9 +19,6 @@ tdPdfPlot(..., S = NULL, xVals = NULL)
 \description{
 Given a model (or models) of class \code{timedist}, produce a cumulative
 distribution plot for each of them.
-
-Given a model (or models) of class \code{timedist}, produce a probability
-density function plot for each of them.
 }
 \examples{
 tdTilia <- tdData(tilia, x = "Day", y = "Trees")

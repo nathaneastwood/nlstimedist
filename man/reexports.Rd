@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{confint2}
-\alias{reexports}
 \alias{\%>\%}
 \title{Objects exported from other packages}
 \keyword{internal}
