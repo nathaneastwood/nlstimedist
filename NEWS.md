@@ -1,4 +1,3 @@
-# nlstimedist 1.1.2
+# nlstimedist 1.1.4
 
-* Added a `NEWS.md` file to track changes to the package.
-* Fixed failing tests due to updates to **broom**
+* Update authors

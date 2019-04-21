@@ -1,8 +1,7 @@
-## Sixth submission
+## Seventh submission
 This resubmission is the sixth submission. In this version I have:
 
-* Added a NEWS.md file
-* Fixed failing tests due to changes to R, broom and testthat
+* Updated the author tags
 
 NOTE: The check states there is a possibly misspelled word: phenology; this is, 
 however, correct.
