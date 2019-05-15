@@ -3,12 +3,12 @@ Type: Package
 Title: Non-Linear Model Fitting of Time Distribution of Biological Phenomena
 Version: 1.1.4
 Authors@R: c(
-  person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", 
-         role = c("cre", "aut")),
-  person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "aut"),
-  person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "aut"),
   person("Nathan", "Eastwood", , "nathan.eastwood@icloud.com",
-         role = c("aut", "prg"))
+         role = c("cre", "prg", "trl")),
+  person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", 
+         role = "aut"),
+  person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "aut"),
+  person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "aut")
   )
 Description: Fit biologically meaningful distribution functions to
   time-sequence data (phenology), estimate parameters to draw the cumulative
