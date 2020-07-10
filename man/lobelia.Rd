@@ -4,12 +4,14 @@
 \name{lobelia}
 \alias{lobelia}
 \title{Lobelia urens seeds data}
-\format{A data frame with 231 rows and 3 variables:
+\format{
+A data frame with 231 rows and 3 variables:
 \describe{
   \item{Day}{The day number}
   \item{Temperature}{The temperature}
   \item{Germination}{The number which germinated}
-}}
+}
+}
 \usage{
 lobelia
 }

@@ -4,11 +4,13 @@
 \name{tilia}
 \alias{tilia}
 \title{Leafing phenology of tilia cordata}
-\format{A data frame with 34 rows and 2 variables:
+\format{
+A data frame with 34 rows and 2 variables:
 \describe{
   \item{Day}{The day number}
   \item{Trees}{The number of trees}
-}}
+}
+}
 \usage{
 tilia
 }

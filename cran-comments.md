@@ -1,10 +1,6 @@
-## Seventh submission
-This resubmission is the sixth submission. In this version I have:
-
-* Updated the author tags
-
-NOTE: The check states there is a possibly misspelled word: phenology; this is, 
-however, correct.
+## Eigth submission
+This release fixes failing tests for the {broom} version 0.7.0 which is an
+upcoming release.
 
 ## Test environments
 * local OS X install, R 3.5.1

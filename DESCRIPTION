@@ -1,11 +1,11 @@
 Package: nlstimedist
 Type: Package
 Title: Non-Linear Model Fitting of Time Distribution of Biological Phenomena
-Version: 1.1.4
+Version: 1.1.5
 Authors@R: c(
   person("Nathan", "Eastwood", , "nathan.eastwood@icloud.com",
          role = c("cre", "prg", "trl")),
-  person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk", 
+  person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk",
          role = "aut"),
   person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "aut"),
   person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "aut")
@@ -27,7 +27,8 @@ Imports:
   nlstools (>= 1.0-2)
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 6.1.1
+Encoding: UTF-8
+RoxygenNote: 7.1.0
 Suggests:
   knitr,
   rmarkdown,

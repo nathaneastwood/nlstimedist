@@ -3,7 +3,6 @@
 \docType{package}
 \name{nlstimedist}
 \alias{nlstimedist}
-\alias{nlstimedist-package}
 \title{Fit the time-course of biological phenomena}
 \description{
 \pkg{nlstimedist} fits a biologically meaningful distribution function to
