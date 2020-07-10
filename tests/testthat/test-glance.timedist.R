@@ -10,7 +10,7 @@ test_that("Ensure the glance method is returning expected values", {
       sigma = 0.0595516186299733, isConv = TRUE, finTol = 1.49011611938477e-08,
       logLik = 21.3157601682213, AIC = -34.6315203364427,
       BIC = -32.0752910179816, deviance = 0.0390103480959477, df.residual = 11L,
-      RSS = 0.968195658520631
+      nobs = 14, RSS = 0.968195658520631
     ),
     class = "data.frame", row.names = c(NA, -1L)
   )
