@@ -1,41 +1,40 @@
-#' @title Calculate moments for the fitted timedist model
+#' Calculate moments for the fitted `timedist` model
 #'
-#' @description Individual functions are provided as well as a wrapper to
-#' calculate the moments for your fitted model.
+#' Calculate individual model summary statistics or use the wrapper, `tdMoments()`, to calculate all model summary
+#' statistics.
 #'
-#' @param r,c,t Parameters of the Franco distribution
-#' @param ... Additional arguments to be passed to
-#'   \code{\link[stats]{integrate}}
+#' @param r,c,t `numeric(1)`. Parameters of the Franco distribution.
+#' @param ... Additional arguments to be passed to [stats::integrate()].
 #'
-#' @return A single value, or in the case of \code{tdMoments}, a
-#'   \code{data.frame} of values.
+#' @return
+#' For the individual summary statistic functions, a single `numeric`; for `tdMoments()`, a single row `data.frame` of
+#' `numerics` containing all of the summary statistics as individual columns.
 #'
 #' @examples
 #' tdMoments(r = 0.1, c = 0.5, t = 120)
 #'
+#' @importFrom stats integrate
+#'
 #' @export
 tdMoments <- function(r, c, t, ...) {
-  data.frame("mean" = tdMean(r = r, c = c, t = t, ...),
-             "variance" = tdVariance(r = r, c = c, t = t, ...),
-             "sd" = sqrt(tdVariance(r = r, c = c, t = t, ...)),
-             "skew" = tdSkew(r = r, c = c, t = t, ...),
-             "kurtosis" = tdKurtosis(r = r, c = c, t = t, ...),
-             "entropy" = tdEntropy(r = r, c = c, t = t, ...))
+  data.frame(
+    "mean" = tdMean(r = r, c = c, t = t, ...),
+    "variance" = tdVariance(r = r, c = c, t = t, ...),
+    "sd" = sqrt(tdVariance(r = r, c = c, t = t, ...)),
+    "skew" = tdSkew(r = r, c = c, t = t, ...),
+    "kurtosis" = tdKurtosis(r = r, c = c, t = t, ...),
+    "entropy" = tdEntropy(r = r, c = c, t = t, ...)
+  )
 }
 
-#' @param upper The upper limit of integration. Defaults to \code{t * 10}. Can
-#'   be infinite for all moment functions except for entropy.
+#' @param upper `numeric(1)`. The upper limit of integration. Defaults to `t * 10`. Can be infinite for all moment
+#' functions except for entropy.
 #' @examples
 #' tdMean(r = 0.1, c = 0.5, t = 120)
 #' @rdname tdMoments
 #' @export
 tdMean <- function(r, c, t, upper = t * 10, ...) {
-  vars <- list(r = r, c = c, t = t)
-  meanFn <- function(x, r, c, t) {
-    1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)
-  }
-  stats::integrate(meanFn, lower = 0, upper = upper,
-                   r = r, c = c, t = t, ...)$value
+  stats::integrate(meanWorker, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
 }
 
 #' @examples
@@ -43,12 +42,7 @@ tdMean <- function(r, c, t, upper = t * 10, ...) {
 #' @rdname tdMoments
 #' @export
 tdVariance <- function(r, c, t, upper = t * 10, ...) {
-  vars <- list(r = r, c = c, t = t)
-  varFn <- function(x, r, c, t) {
-    x * (1 - ((1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)))
-  }
-  2 * stats::integrate(varFn, lower = 0, upper = upper,
-                       r = r, c = c, t = t, ...)$value -
+  2 * stats::integrate(varWorker, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value -
     (tdMean(r = r, c = c, t = t, ...) ^ 2)
 }
 
@@ -57,46 +51,27 @@ tdVariance <- function(r, c, t, upper = t * 10, ...) {
 #' @rdname tdMoments
 #' @export
 tdSkew <- function(r, c, t, upper = t * 10, ...) {
-  vars <- list(r = r, c = c, t = t)
-  omega <- tdMean(r = r, c = c, t = t, ...) /
-    sqrt(tdVariance(r = r, c = c, t = t, ...))
-  mmean <- tdMean(r = r, c = c, t = t, ...)
-  skewFn <- function(x, r, c, t) {
-    (x ^ 2) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
-  }
-  integrand <- 3 * stats::integrate(skewFn, lower = 0, upper = upper,
-                                    r = r, c = c, t = t,  ...)$value
-  ((omega ^ 3) / (mmean ^ 3)) * integrand - omega * (3 + omega ^ 2)
+  o <- omegaWorker(r = r, c = c, t = t, ...)
+  integrand <- 3 * stats::integrate(skewWorker, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
+  ((o ^ 3) / (tdMean(r = r, c = c, t = t, ...) ^ 3)) * integrand - o * (3 + o ^ 2)
 }
 
-#' @param alternative An alternative calculation method.
+#' @param alternative `logical(1)`. Whether to use the alternative calculation method (`TRUE`) or not (default:
+#' `FALSE`).
 #' @examples
 #' tdKurtosis(r = 0.1, c = 0.5, t = 120)
 #' tdKurtosis(r = 0.1, c = 0.5, t = 120, alternative = TRUE)
 #' @rdname tdMoments
 #' @export
 tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
-  vars <- list(r = r, c = c, t = t)
-  omega <- tdMean(r = r, c = c, t = t, ...) /
-    sqrt(tdVariance(r = r, c = c, t = t, ...))
-  mmean <- tdMean(r = r, c = c, t = t, ...)
-  mskew <- tdSkew(r = r, c = c, t = t, ...)
-  kurt_franco <- function(x, r, c, t) {
-    (x ^ 3) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
-  }
-  integrand <- 4 * stats::integrate(kurt_franco, lower = 0, upper = upper,
-                                    r = r, c = c, t = t,  ...)$value
+  m <- tdMean(r = r, c = c, t = t, ...)
+  o <- omegaWorker(r = r, c = c, t = t, ...)
+  integrand <- 4 * stats::integrate(tdFranco, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
   if (alternative) {
-    skewFn <- function(x, r, c, t) {
-      (x ^ 2) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
-    }
-    ex3 <- 3 * stats::integrate(skewFn, lower = 0, upper = upper,
-                                r = r, c = c, t = t,  ...)$value
-    ((omega ^ 4) / (mmean ^ 4)) * integrand - 4 * ((omega ^ 4) / (mmean ^ 3)) *
-      ex3 + (3 * omega ^ 2) * (2 + omega ^ 2) - 3
+    ex3 <- 3 * stats::integrate(skewWorker, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
+    ((o ^ 4) / (m ^ 4)) * integrand - 4 * ((o ^ 4) / (m ^ 3)) * ex3 + (3 * o ^ 2) * (2 + o ^ 2) - 3
   } else {
-    ((omega ^ 4) / (mmean ^ 4)) * integrand - 4 * omega * mskew - (omega ^ 2) *
-      (6 + omega ^ 2) - 3
+    ((o ^ 4) / (m ^ 4)) * integrand - 4 * o * tdSkew(r = r, c = c, t = t, ...) - (o ^ 2) * (6 + o ^ 2) - 3
   }
 }
 
@@ -105,19 +80,28 @@ tdKurtosis <- function(r, c, t, upper = t * 10, alternative = FALSE, ...) {
 #' @rdname tdMoments
 #' @export
 tdEntropy <- function(r, c, t, upper = t * 10, ...) {
-  vars <- list(r = r, c = c, t = t)
-  entFn <- function(x, r, c, t) {
-    (-((1 - (r / (1 + exp(-c * (x - t))))) ^ x) *
-       (log(1 - (r / (1 + exp(-c * (x - t))))) -
-          (x * r * c * exp(-c * (x - t))) /
-          (((1 + exp(-c * (x - t))) ^ 2) *
-             (1 - (r / (1 + exp(-c * (x - t)))))))) *
-      (log(-((1 - (r / (1 + exp(-c * (x - t))))) ^ x) *
-             (log(1 - (r / (1 + exp(-c * (x - t))))) -
-                (x * r * c * exp(-c * (x - t))) /
-                (((1 + exp(-c * (x - t))) ^ 2) *
-                   (1 - (r / (1 + exp(-c * (x - t)))))))) / log(2))
-  }
-  -stats::integrate(entFn, lower = 0, upper = upper,
-                    r = r, c = c, t = t, ...)$value
+  -stats::integrate(entropyWorker, lower = 0, upper = upper, r = r, c = c, t = t, ...)$value
+}
+
+# summary functions ----------------------------------------------------------------------------------------------------
+tdFranco <- function(x, r, c, t) (x ^ 3) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
+meanWorker <- function(x, r, c, t) 1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)
+varWorker <- function(x, r, c, t) x * (1 - ((1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)))
+skewWorker <- function(x, r, c, t) (x ^ 2) * (1 - (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x))
+omegaWorker <- function(x, r, c, t, ...) tdMean(r = r, c = c, t = t, ...) / sqrt(tdVariance(r = r, c = c, t = t, ...))
+entropyWorker <- function(x, r, c, t) {
+  (
+    -((1 - (r / (1 + exp(-c * (x - t))))) ^ x) * (
+      log(1 - (r / (1 + exp(-c * (x - t))))) - (x * r * c * exp(-c * (x - t))) /
+      (((1 + exp(-c * (x - t))) ^ 2) * (1 - (r / (1 + exp(-c * (x - t))))))
+    )
+  ) * (
+    log(
+      -((1 - (r / (1 + exp(-c * (x - t))))) ^ x) * (
+        log(1 - (r / (1 + exp(-c * (x - t))))) - (x * r * c * exp(-c * (x - t))) /
+        (((1 + exp(-c * (x - t))) ^ 2) * (1 - (r / (1 + exp(-c * (x - t))))))
+      )
+    ) /
+    log(2)
+  )
 }

@@ -1,16 +1,14 @@
-#' @title Calculate the corrected residual sum of squares
+#' Calculate the corrected residual sum of squares
 #'
-#' @description Calculate the corrected residual sum of squares for a model of
-#'   class \code{timedist}.
+#' Calculate the corrected residual sum of squares for a `timedist` model.
 #'
-#' @param model An object of class \code{timedist}.
+#' @param model An object of class `timedist`.
 #'
-#' @return A single value.
+#' @return `numeric(1)`.
 #'
 #' @examples
 #' tdTilia <- tdData(tilia, x = "Day", y = "Trees")
-#' model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
-#'                   t = 120)
+#' model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
 #' model
 #' tdRSS(model)
 #'

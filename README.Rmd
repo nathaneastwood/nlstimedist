@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 
 ```
 
-# nlstimedist
+# {nlstimedist}
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis-CI Build Status](https://travis-ci.org/nathaneastwood/nlstimedist.svg?branch=master)](https://travis-ci.org/nathaneastwood/nlstimedist) [![](http://www.r-pkg.org/badges/version/nlstimedist)](http://www.r-pkg.org/pkg/nlstimedist) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/nlstimedist)](http://www.r-pkg.org/pkg/remotes) [![codecov](https://codecov.io/gh/nathaneastwood/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/nathaneastwood/nlstimedist)
 
-nlstimedist fits a biologically meaningful distribution function to time-sequence data (phenology), estimates parameters to draw the cumulative distribution function and probability density function and calculates standard statistical moments and percentiles.
+`{nlstimedist}` fits a biologically meaningful distribution function to time-sequence data (phenology), estimates parameters to draw the cumulative distribution function and probability density function and calculates standard statistical moments and percentiles.
 
 # Installation
 
@@ -33,19 +33,20 @@ install.packages("nlstimedist")
 * the latest development version from GitHub with
 
 ```{r gh, eval = FALSE}
-devtools::install_github("nathaneastwood/nlstimedist")
+# install.packages("remotes")
+remotes::install_github("nathaneastwood/nlstimedist")
 ```
 
 # Usage
 
 ## Preparing the data
-Data should be in tidy format. `nlstimedist` provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
+Data should be in tidy format. `{nlstimedist}` provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
 
 ```{r data}
 head(tilia)
 ```
 
-We first need to calculate the cumulative number of trees as well as the proportions. We do this using the `tdData` function.
+We first need to calculate the cumulative number of trees as well as the proportions. We do this using the `tdData()` function.
 
 ```{r tidy}
 tdTilia <- tdData(tilia, x = "Day", y = "Trees")
@@ -53,7 +54,7 @@ tdTilia
 ```
 
 ## Fitting the model
-We fit the model to the proportion of the cumulative number of trees (`propMax`) in the `tdTilia` data using the `timedist` function.
+We fit the model to the proportion of the cumulative number of trees (`propMax`) in the `tdTilia` data using the `timedist()` function.
 
 ```{r model}
 model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
@@ -75,7 +76,7 @@ model$m$rss()
 ```
 
 ## Plotting the PDF and CDF
-The pdf and cdf of the model have their own plotting functions.
+The probability density function (PDF) and the cumulative distribution function (CDF) of the model have their own plotting functions.
 
 ```{r pdfPlot}
 tdPdfPlot(model)
@@ -86,4 +87,4 @@ tdCdfPlot(model)
 ```
 
 # Citation
-Franco, M. (2012). *The time-course of biological phenomenon - illustrated with the London Marathon*. Unpublished manuscript. Plymouth University.
+Franco, Miguel. (2018). The time distribution of biological phenomena – illustrated with the London marathon. 10.7287/peerj.preprints.27175.

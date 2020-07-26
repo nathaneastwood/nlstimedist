@@ -9,21 +9,18 @@ tdPercentiles(model, n, upper = model$m$getPars()["t"] * 10, ...)
 \arguments{
 \item{model}{An object of class \code{timedist}.}
 
-\item{n}{A vector of percentiles to be calculated.}
+\item{n}{\code{numeric(n)}. A vector of percentiles to be calculated.}
 
-\item{upper}{The upper end point of the interval to search.}
+\item{upper}{\code{numeric(1)}. The upper end point of the interval to search.}
 
-\item{...}{Additional parameters to be passed to
-\code{\link[stats]{uniroot}}.}
+\item{...}{Additional parameters to be passed to \code{\link[stats:uniroot]{stats::uniroot()}}.}
 }
 \description{
-Calculate the percentiles for a given model output
+Calculate the percentiles for a given model.
 }
 \examples{
 tdTilia <- tdData(tilia, x = "Day", y = "Trees")
-model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
-                  t = 120)
-model
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
 tdPercentiles(model, n = 0.5)
 tdPercentiles(model, n = seq(0, 0.9, 0.1))
 

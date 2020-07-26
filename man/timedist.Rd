@@ -7,32 +7,30 @@
 timedist(data, x, y, r, c, t, ...)
 }
 \arguments{
-\item{data}{The data to be included in the model.}
+\item{data}{A \code{data.frame}. The data to be included in the model.}
 
-\item{x, y}{The x and y values in the data, where the y values are the
-proportions.}
+\item{x, y}{\code{character(1)}. The x and y values in the data, where the y values are the proportions.}
 
-\item{r, c, t}{The starting parameters for the model.}
+\item{r, c, t}{\code{numeric(1)}. The starting parameters for the model.}
 
-\item{...}{Additional parameters to be passed to
-\code{\link[minpack.lm]{nlsLM}}.}
+\item{...}{Additional parameters to be passed to \code{\link[minpack.lm:nlsLM]{minpack.lm::nlsLM()}}.}
 }
 \description{
-Fit the Franco model
+Fit the time-course of biological phenomena.
 }
 \details{
-The \code{\link[minpack.lm]{nlsLM}} function is used instead of the
-  \code{\link[stats]{nls}} function in order to use the Levenberg-Marquardt
-  algorithm which is an extremely robust method of curve-fitting as it is
-  able to switch between Gauss-Newton and gradient descent. This allows it to
-  cope with far-off-optimal starting values. The standard nls function does
-  not use Levenberg-Marquardt; it instead uses the Gauss-Newton type, the
-  PORT routines and a partial linear fit.
+The \code{\link[minpack.lm:nlsLM]{minpack.lm::nlsLM()}} function is used instead of the \code{\link[stats:nls]{stats::nls()}} function in order to use the
+Levenberg-Marquardt algorithm which is an extremely robust method of curve-fitting as it is able to switch
+between Gauss-Newton and gradient descent. This allows it to cope with far-off-optimal starting values. The standard
+\code{nls} function does not use Levenberg-Marquardt; it instead uses the Gauss-Newton type, the PORT routines and a
+partial linear fit.
 }
 \examples{
 tdTilia <- tdData(tilia, x = "Day", y = "Trees")
-model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
-                  t = 120)
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
 model
 
+}
+\seealso{
+\code{\link[=tdPDF]{tdPDF()}}, \code{\link[=tdCDF]{tdCDF()}}, \code{\link[=tdRSS]{tdRSS()}}, \code{\link[=glance]{glance()}}, \code{\link[=tdMoments]{tdMoments()}}, \code{\link[=tdPercentiles]{tdPercentiles()}}
 }

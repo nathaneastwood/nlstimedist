@@ -1,5 +1,5 @@
 ---
-title: "An Introduction to the `nlstimedist` Package"
+title: "An Introduction to the `{nlstimedist}` Package"
 author: "Nicola Steer, Nathan Eastwood and Miguel Franco"
 output:
   html_document:
@@ -8,7 +8,7 @@ output:
     toc: yes
 bibliography: ref.bib
 vignette: >
- %\VignetteIndexEntry{Package Overview}
+ %\VignetteIndexEntry{nlstimedist}
  %\VignetteEngine{knitr::rmarkdown}
  %\VignetteEncoding{UTF-8}
 ---
@@ -20,34 +20,33 @@ knitr::opts_chunk$set(
   comment = NA
 )
 ```
- 
+
 # Introduction
 
-This vignette presents the `nlstimedist` package, a method to fit a new distribution model to the time distribution of a biological phenomenon [@manuscript]. The model differentiates between three essential aspects of a time distribution: the rate at which the process is expected to occur (parameter $r$), the rate of change of $r$ with time, which is reflected in the time concentration of the distribution (parameter $c$), and a measure of the overall distribution time lag (parameter $t$). The fitting method incorporates the `minpack.lm::nlsLM` function [@minpack] to estimate these three parameters and to plot the estimated time distribution. The `nlstimedist` package, however, also estimates the standard distribution moments. The method is being proposed to analyse the time distribution of biological events such as germination, phenology, invasion, conclusion of a race, etc. Because parameter values have clear, unique effects on three different aspects of the distribution’s shape (and are correlated but not identical to specific moments), they have clear biological interpretation. This allows the user to further investigate the effect that biological (e.g., species, gender, health, etc.) and environmental factors (e.g., temperature) have on a biological time course. For example, are differences between the sexes in the completion of a marathon race reflected in a particular parameter? If so, what do these differences mean in terms of their size, musculature, aerobic capacity, etc.? If the parameters have a biological interpretation, how are they affected by ambient temperature, hydration, sugar levels, etc.?
+This vignette presents the `{nlstimedist}` package, a method to fit a new distribution model to the time distribution of a biological phenomenon [@manuscript]. The model differentiates between three essential aspects of a time distribution: the rate at which the process is expected to occur (parameter $r$), the rate of change of $r$ with time, which is reflected in the time concentration of the distribution (parameter $c$), and a measure of the overall distribution time lag (parameter $t$). The fitting method incorporates the `minpack.lm::nlsLM()` function [@minpack] to estimate these three parameters and to plot the estimated time distribution. The `{nlstimedist}` package, however, also estimates the standard distribution moments. The method is being proposed to analyse the time distribution of biological events such as germination, phenology, invasion, conclusion of a race, etc. Because parameter values have clear, unique effects on three different aspects of the distribution’s shape (and are correlated but not identical to specific moments), they have clear biological interpretation. This allows the user to further investigate the effect that biological (e.g., species, gender, health, etc.) and environmental factors (e.g., temperature) have on a biological time course. For example, are differences between the sexes in the completion of a marathon race reflected in a particular parameter? If so, what do these differences mean in terms of their size, musculature, aerobic capacity, etc.? If the parameters have a biological interpretation, how are they affected by ambient temperature, hydration, sugar levels, etc.?
 
 # Data Setup
 
-In the model, time is represented by variable $x$ and the biological phenomenon is represented by variable $y$.  The values in each $y$ column should be proportions and should be calculated from the cumulative number of events.  This must be completed for each column in a dataset.  If data have been set up in this manner, skip ahead to the [modelling section](#model). If the data have not been set up in this format and it is in a raw format of counts vs. time, they must first be cleaned using the `tdData` function. 
+In the model, time is represented by variable $x$ and the biological phenomenon is represented by variable $y$. The values in each $y$ column should be proportions and should be calculated from the cumulative number of events. This must be completed for each column in a dataset. If data have been set up in this manner, skip ahead to the [modelling section](#model). If the data have not been set up in this format and it is in a raw format of counts vs. time, they must first be cleaned using the `tdData()` function.
 
-## Cleaning data using `tdData`
+## Cleaning Data Using `tdData()`
 
-The `nlstimedist` package comes with several example datasets, one being the `lobelia` dataset.
+The `{nlstimedist}` package comes with several example datasets, one being the `lobelia` dataset.
 
 ```{r viewTilia}
 head(lobelia)
 ```
 
-We can clean and prepare the data for modelling using the `tdData` function.
+We can clean and prepare the data for modelling using the `tdData()` function.
 
 ```{r cleanTilia}
-tdLobelia <- tdData(lobelia, x = "Day", y = "Germination", 
-                    group = "Temperature")
+tdLobelia <- tdData(lobelia, x = "Day", y = "Germination", group = "Temperature")
 tdLobelia
 ```
 
 # Modelling the Data {#model}
 
-The model is fitted by nonlinear regression employing the Levenberg-Marquardt algorithm.  This requires three starting values for $r$, $c$ and $t$, respectively. 
+The model is fitted by nonlinear regression employing the Levenberg-Marquardt algorithm. This requires three starting values for $r$, $c$ and $t$, respectively.
 
 ## Starting Values {#startVals}
 
@@ -59,33 +58,35 @@ Suggestions for appropriate starting values for each parameter are as follows:
 | $c$ | This requires some trial and error with your particular dataset. We suggest you start with 0.5 and increase (or decrease) it along a logarithmic scale to get a feel of how it is changing. Increasing values of $c$ reduce the spread of the distribution: $c$ is a measure of concentration of the distribution. |
 | $t$ | This tends to be close to the mid-point of the monitoring period, but it varies with the skew produced by the combination of parameter values. Nonetheless, as a rule of thumb choose a number near the middle of your time range – if completion of a process (e.g., a marathon race) was closed after 10 hours, choose $t = 5$. |
 
-## The `timedist` Function
+## The `timedist()` Function
 
-The model is fitted to the data using the `timedist` function.
+The model is fitted to the data using the `timedist()` function.
 
 ```{r fitModel}
-# Fitting the model to data already in the format x = time and y = proportion 
+# Fitting the model to data already in the format x = time and y = proportion
 # of cumulative number of events.
-lobelia12_5 <- tdLobelia$clean[tdLobelia$clean$Temperature == 12.5, ]
-model12_5 <- timedist(lobelia12_5, x = "Day", y = "propMax", 
-                      r = 0.03, c = 0.5, t = 14.5)
+lobelia12_5 <- tdLobelia[tdLobelia$Temperature == 12.5, ]
+model12_5 <- timedist(
+  lobelia12_5, x = "Day", y = "propMax", r = 0.03, c = 0.5, t = 14.5
+)
 model12_5
 ```
 
 ## Fixing Starting Values
 
-On rare occasions the model may fail to converge within 50 iterations.  This may occur if a very small dataset is used.  It is possible to overcome this issue by fixing or setting upper and lower bounds for one of the starting values.  The parameter $r$ is the most appropriate parameter to do this with.  It is suggested that you calculate the starting value for $r$ as in the [starting values section](#startVals) and set the upper and lower bounds around this figure (see below).
+On rare occasions the model may fail to converge within 50 iterations. This may occur if a very small dataset is used. It is possible to overcome this issue by fixing or setting upper and lower bounds for one of the starting values. The parameter $r$ is the most appropriate parameter to do this with. It is suggested that you calculate the starting value for $r$ as in the [starting values section](#startVals) and set the upper and lower bounds around this figure (see below).
 
 ```{r fixVals}
-modelFix <- timedist(data = lobelia12_5, x = "Day", y = "propMax", 
-                     r = 0.03, c = 0.5, t = 14.5, 
-                     upper = c(0.1, Inf, Inf), lower = c(0.01, -Inf, -Inf))
+modelFix <- timedist(
+  data = lobelia12_5, x = "Day", y = "propMax", r = 0.03, c = 0.5, t = 14.5,
+  upper = c(0.1, Inf, Inf), lower = c(0.01, -Inf, -Inf)
+)
 modelFix
 ```
 
 # Interpreting the Fit of the Model
 
-To assess how well the model has fit the data, and the reliability of parameter estimates, it is suggested that the standard errors, correlations of the estimates, and confidence intervals are obtained.  In each example we have used the model `model12_5`.
+To assess how well the model has fit the data, and the reliability of parameter estimates, it is suggested that the standard errors, correlations of the estimates, and confidence intervals are obtained. In each example we have used the model `model12_5`.
 
 ## Standard Errors
 
@@ -104,7 +105,7 @@ cov2cor(cpe)
 
 ## Confidence Intervals
 
-To produce accurate confidence intervals for the parameters in a nonlinear regression model fit, we can use the `confint2` function.
+To produce accurate confidence intervals for the parameters in a nonlinear regression model fit, we can use the `confint2()` function.
 
 ```{r confint}
 confint2(model12_5)
@@ -112,7 +113,7 @@ confint2(model12_5)
 
 ## R-squared
 
-There is no direct R-squared for non-linear regression. However, an R-squared value calculated as $1-\bigg(\frac{\text{Residual Sum of Squares}}{\text{Corrected Sum of Squares}}\bigg)$ defines a similar quantity for nonlinear regression, is able to describe the proportion of variance explained by the model, and provides a very good estimate of how well the model fits the data. We can extract this value from our model using the `tdRSS` function.
+There is no direct R-squared for non-linear regression. However, an R-squared value calculated as $1-\bigg(\frac{\text{Residual Sum of Squares}}{\text{Corrected Sum of Squares}}\bigg)$ defines a similar quantity for nonlinear regression, is able to describe the proportion of variance explained by the model, and provides a very good estimate of how well the model fits the data. We can extract this value from our model using the `tdRSS()` function.
 
 ```{r rss}
 tdRSS(model12_5)
@@ -128,7 +129,7 @@ model12_5$m$getMoments()
 
 ## Percentiles
 
-The percentiles of the distribution can also be calculated.  This can be achieved for a single percentile or for a sequence of percentiles.
+The percentiles of the distribution can also be calculated. This can be achieved for a single percentile or for a sequence of percentiles.
 
 ```{r singlePerc}
 # Extracting a single percentile
@@ -143,7 +144,7 @@ The package has two built-in graphing functions for plotting the estimated distr
 
 ## Probability Density Function (PDF)
 
-The PDF is produced using the function `tdPdfPlot`.  This function takes one or more objects produced by the model, a scaling parameter `S` and values for the x-axis `xVals` (which includes a value for smoothing the curve), as arguments to produce the PDF plot.
+The PDF is produced using the function `tdPdfPlot()`. This function takes one or more objects produced by the model, a scaling parameter `S` and values for the x-axis `xVals` (which includes a value for smoothing the curve), as arguments to produce the PDF plot.
 
 ```{r singlePdf}
 tdPdfPlot(model12_5, S = 1, xVals = seq(0, 30, 0.01))
@@ -153,44 +154,40 @@ Multiple models can be plotted on the same graph by providing the function with 
 
 ```{r multPdf}
 # Extract the individual data
-lobelia9_8 <- tdLobelia$clean[tdLobelia$clean$Temperature == 9.8, ]
-lobelia16_7 <- tdLobelia$clean[tdLobelia$clean$Temperature == 16.7, ]
-lobelia20_2 <- tdLobelia$clean[tdLobelia$clean$Temperature == 20.2, ]
-lobelia24_3 <- tdLobelia$clean[tdLobelia$clean$Temperature == 24.3, ]
-lobelia28_5 <- tdLobelia$clean[tdLobelia$clean$Temperature == 28.5, ]
-lobelia32 <- tdLobelia$clean[tdLobelia$clean$Temperature == 32, ]
+lobelia9_8 <- tdLobelia[tdLobelia$Temperature == 9.8, ]
+lobelia16_7 <- tdLobelia[tdLobelia$Temperature == 16.7, ]
+lobelia20_2 <- tdLobelia[tdLobelia$Temperature == 20.2, ]
+lobelia24_3 <- tdLobelia[tdLobelia$Temperature == 24.3, ]
+lobelia28_5 <- tdLobelia[tdLobelia$Temperature == 28.5, ]
+lobelia32 <- tdLobelia[tdLobelia$Temperature == 32, ]
 
 # Create the models
-model9_8 <- timedist(lobelia9_8, x = "Day", y = "propMax", 
-                     r = 0.1, c = 0.5, t = 25)
-model16_7 <- timedist(lobelia16_7, x = "Day", y = "propMax", 
-                      r = 0.1, c = 0.5, t = 10)
-model20_2 <- timedist(lobelia20_2, x = "Day", y = "propMax", 
-                      r = 0.1, c = 0.5, t = 10)
-model24_3 <- timedist(lobelia24_3, x = "Day", y = "propMax", 
-                      r = 0.1, c = 1, t = 5)
-model28_5 <- timedist(lobelia28_5, x = "Day", y = "propMax", 
-                      r = 0.1, c = 1, t = 5)
-model32 <- timedist(lobelia32, x = "Day", y = "propMax", 
-                    r = 0.1, c = 0.5, t = 5)
+model9_8 <- timedist(lobelia9_8, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 25)
+model16_7 <- timedist(lobelia16_7, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 10)
+model20_2 <- timedist(lobelia20_2, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 10)
+model24_3 <- timedist(lobelia24_3, x = "Day", y = "propMax", r = 0.1, c = 1, t = 5)
+model28_5 <- timedist(lobelia28_5, x = "Day", y = "propMax", r = 0.1, c = 1, t = 5)
+model32 <- timedist(lobelia32, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 5)
 
 # Generate the plot
-tdPdfPlot(model9_8, model12_5, model16_7, model20_2, model24_3, model28_5, 
-          model32, 
-          S = c(0.213, 0.307, 0.533, 0.707, 0.867, 0.907, 0.840), 
-          xVals = seq(0, 30, 0.001))
+tdPdfPlot(
+  model9_8, model12_5, model16_7, model20_2, model24_3, model28_5, model32,
+  S = c(0.213, 0.307, 0.533, 0.707, 0.867, 0.907, 0.840),
+  xVals = seq(0, 30, 0.001)
+)
 ```
 
 ## Cumulative Distribution Function (CDF)
 
-The CDF is produced using the function `tdCdfPlot`.  This function takes one or more objects produced by the model, a scaling parameter `S` and values for the x-axis `xVals` (which includes a value for smoothing the curve), as arguments to produce the CDF plot.
+The CDF is produced using the function `tdCdfPlot()`. This function takes one or more objects produced by the model, a scaling parameter `S` and values for the x-axis `xVals` (which includes a value for smoothing the curve), as arguments to produce the CDF plot.
 
 ```{r singleCdf}
 tdCdfPlot(model12_5, S = 1, xVals = seq(0, 30, 0.01))
-tdCdfPlot(model9_8, model12_5, model16_7, model20_2, model24_3, model28_5, 
-          model32, 
-          S = c(0.213, 0.307, 0.533, 0.707, 0.867, 0.907, 0.840), 
-          xVals = seq(0, 30, 0.001))
+tdCdfPlot(
+  model9_8, model12_5, model16_7, model20_2, model24_3, model28_5, model32,
+  S = c(0.213, 0.307, 0.533, 0.707, 0.867, 0.907, 0.840),
+  xVals = seq(0, 30, 0.001)
+)
 ```
 
 # References

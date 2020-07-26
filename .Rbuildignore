@@ -3,8 +3,12 @@
 ^\.Rproj\.user$
 ^cran-comments\.md$
 ^README\.Rmd$
+^README\.html$
 ^README-.*\.png$
 ^codecov\.yml$
 ^\.travis\.yml$
 .Rprofile
 nlstimedist.code-workspace
+^doc$
+^Meta$
+build_docs.sh

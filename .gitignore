@@ -4,3 +4,9 @@
 .Ruserdata
 .DS_Store
 nlstimedist.code-workspace
+nlstimedist.Rproj
+doc
+Meta
+README.html
+build_docs.sh
+cran-comments.md

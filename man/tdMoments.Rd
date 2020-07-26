@@ -7,7 +7,7 @@
 \alias{tdSkew}
 \alias{tdKurtosis}
 \alias{tdEntropy}
-\title{Calculate moments for the fitted timedist model}
+\title{Calculate moments for the fitted \code{timedist} model}
 \usage{
 tdMoments(r, c, t, ...)
 
@@ -22,23 +22,23 @@ tdKurtosis(r, c, t, upper = t * 10, alternative = FALSE, ...)
 tdEntropy(r, c, t, upper = t * 10, ...)
 }
 \arguments{
-\item{r, c, t}{Parameters of the Franco distribution}
+\item{r, c, t}{\code{numeric(1)}. Parameters of the Franco distribution.}
 
-\item{...}{Additional arguments to be passed to
-\code{\link[stats]{integrate}}}
+\item{...}{Additional arguments to be passed to \code{\link[stats:integrate]{stats::integrate()}}.}
 
-\item{upper}{The upper limit of integration. Defaults to \code{t * 10}. Can
-be infinite for all moment functions except for entropy.}
+\item{upper}{\code{numeric(1)}. The upper limit of integration. Defaults to \code{t * 10}. Can be infinite for all moment
+functions except for entropy.}
 
-\item{alternative}{An alternative calculation method.}
+\item{alternative}{\code{logical(1)}. Whether to use the alternative calculation method (\code{TRUE}) or not (default:
+\code{FALSE}).}
 }
 \value{
-A single value, or in the case of \code{tdMoments}, a
-  \code{data.frame} of values.
+For the individual summary statistic functions, a single \code{numeric}; for \code{tdMoments()}, a single row \code{data.frame} of
+\code{numerics} containing all of the summary statistics as individual columns.
 }
 \description{
-Individual functions are provided as well as a wrapper to
-calculate the moments for your fitted model.
+Calculate individual model summary statistics or use the wrapper, \code{tdMoments()}, to calculate all model summary
+statistics.
 }
 \examples{
 tdMoments(r = 0.1, c = 0.5, t = 120)

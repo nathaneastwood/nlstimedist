@@ -10,16 +10,14 @@ tdRSS(model)
 \item{model}{An object of class \code{timedist}.}
 }
 \value{
-A single value.
+\code{numeric(1)}.
 }
 \description{
-Calculate the corrected residual sum of squares for a model of
-  class \code{timedist}.
+Calculate the corrected residual sum of squares for a \code{timedist} model.
 }
 \examples{
 tdTilia <- tdData(tilia, x = "Day", y = "Trees")
-model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
-                  t = 120)
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
 model
 tdRSS(model)
 

@@ -1,29 +1,26 @@
 #' Calculate the PDF and CDF
 #'
-#' Calculate values of the probability density function.
+#' Calculate values of the probability density function (PDF) and the cumulative distribution function (CDF).
 #'
-#' @param x Points at which to calculate the the pdf.
-#' @param S Scaling factor for the PDF.
-#' @param r,c,t Parameter values within the model.
+#' @param x `numeric(n)`. Points at which to calculate the the PDF.
+#' @param r,c,t `numeric(1)`. Parameter values within the model.
+#' @param S `numeric(1)`. Scaling factor for the PDF.
 #'
-#' @return A vector of values from the pdf.
+#' @return A vector of values from the PDF or CDF.
+#'
+#' @seealso
+#' [tdPdfPlot()], [tdCdfPlot()]
 #'
 #' @export
-tdPDF <- function(x, S = 1, r, c, t) {
-  -S * ((1 - (r / (1 + exp(-c * (x - t))))) ^ x) *
-    (log(1 - (r / (1 + exp(-c * (x - t))))) -
-       (x * r * c * exp(-c * (x - t))) /
-       (((1 + exp(-c * (x - t))) ^ 2) * (1 - (r / (1 + exp(-c * (x - t)))))))
+tdPDF <- function(x, r, c, t, S = 1) {
+  -S * ((1 - (r / (1 + exp(-c * (x - t))))) ^ x) * (
+    log(1 - (r / (1 + exp(-c * (x - t))))) - (x * r * c * exp(-c * (x - t))) /
+      (((1 + exp(-c * (x - t))) ^ 2) * (1 - (r / (1 + exp(-c * (x - t))))))
+  )
 }
 
-#' Calculate the CDF
-#'
-#' Calculate values of the cumulative distribution function
-#'
-#' @return A vector of values from the cdf.
-#'
 #' @rdname tdPDF
 #' @export
-tdCDF <- function(x, S = 1, r, c, t) {
+tdCDF <- function(x, r, c, t, S = 1) {
   S * (1 - (1 - (r / (1 + exp(-c * (x - t))))) ^ x)
 }

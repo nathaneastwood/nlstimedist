@@ -5,24 +5,23 @@
 \alias{tdCDF}
 \title{Calculate the PDF and CDF}
 \usage{
-tdPDF(x, S = 1, r, c, t)
+tdPDF(x, r, c, t, S = 1)
 
-tdCDF(x, S = 1, r, c, t)
+tdCDF(x, r, c, t, S = 1)
 }
 \arguments{
-\item{x}{Points at which to calculate the the pdf.}
+\item{x}{\code{numeric(n)}. Points at which to calculate the the PDF.}
 
-\item{S}{Scaling factor for the PDF.}
+\item{r, c, t}{\code{numeric(1)}. Parameter values within the model.}
 
-\item{r, c, t}{Parameter values within the model.}
+\item{S}{\code{numeric(1)}. Scaling factor for the PDF.}
 }
 \value{
-A vector of values from the pdf.
-
-A vector of values from the cdf.
+A vector of values from the PDF or CDF.
 }
 \description{
-Calculate values of the probability density function.
-
-Calculate values of the cumulative distribution function
+Calculate values of the probability density function (PDF) and the cumulative distribution function (CDF).
+}
+\seealso{
+\code{\link[=tdPdfPlot]{tdPdfPlot()}}, \code{\link[=tdCdfPlot]{tdCdfPlot()}}
 }

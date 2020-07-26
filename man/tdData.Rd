@@ -7,28 +7,23 @@
 tdData(data, x, y, group = NULL)
 }
 \arguments{
-\item{data}{The raw data to be cleaned.}
+\item{data}{A \code{data.frame}. The raw data to be cleaned.}
 
-\item{x}{The time variable.}
+\item{x}{\code{character(1)}. The time variable.}
 
-\item{y}{The number of events.}
+\item{y}{\code{character(1)}. The number of events.}
 
-\item{group}{The run numbers. This is \code{NULL} by default if you are only
-using the function for one run.}
+\item{group}{\code{character(1)}. The run numbers. This is \code{NULL} by default if you are only using the function for one
+run.}
 }
 \value{
-A list containing
-\itemize{
-  \item raw The raw data supplied to the function, i.e. \code{data}.
-  \item clean item The cleaned data to be supplied to \code{timedist}.
-}
+A \code{data.frame} of the cleaned data to be supplied to the \code{\link[=timedist]{timedist()}} function.
 }
 \description{
-The data for \code{nlstimedist} needs to be in a particular format. This
-function prepares the data for the model.
+The data for \code{nlstimedist} needs to be in a particular format. This function prepares the data for the model.
 }
 \examples{
-tdTilia <- tdData(tilia, x = "Day", y = "Trees")
-tdTilia
+tdData(tilia, x = "Day", y = "Trees")
+tdData(lobelia, x = "Day", y = "Germination", group = "Temperature")
 
 }

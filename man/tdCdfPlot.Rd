@@ -10,20 +10,18 @@ tdCdfPlot(..., S = NULL, xVals = NULL)
 tdPdfPlot(..., S = NULL, xVals = NULL)
 }
 \arguments{
-\item{...}{A model (or a list of models) of class \code{timedist}.}
+\item{...}{\code{timedist} model(s).}
 
-\item{S}{Scaling factor for the PDF.}
+\item{S}{\code{numeric(1)}. Scaling factor for the PDF.}
 
-\item{xVals}{A sequence of values between the x limits (x1, x2) of the plot.}
+\item{xVals}{\code{numeric(n)}. A sequence of values between the x limits (x1, x2) of the plot.}
 }
 \description{
-Given a model (or models) of class \code{timedist}, produce a cumulative
-distribution plot for each of them.
+Given a model (or models) of class \code{timedist}, produce a cumulative distribution plot for each of them.
 }
 \examples{
 tdTilia <- tdData(tilia, x = "Day", y = "Trees")
-model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5,
-                  t = 120)
+model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
 tdCdfPlot(model)
 
 tdPdfPlot(model)
