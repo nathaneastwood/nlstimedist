@@ -144,61 +144,6 @@ tdPdfPlot(model)
 
 ``` r
 tdCdfPlot(model)
-#> Called from: tdCdfPlot(model)
-#> debug: models <- list(...)
-#> debug: modelNames <- do.call(c, lapply(substitute(list(...))[-1], deparse))
-#> debug: if (any(S <= 0 | S > 1)) stop("S must be between 0 and 1")
-#> debug: modLen <- length(models)
-#> debug: if (is.null(S)) S <- rep(1, modLen)
-#> debug: S <- rep(1, modLen)
-#> debug: if (length(S) != modLen) {
-#>     if (length(S) == 1) {
-#>         S <- rep(S, modLen)
-#>     }
-#>     else {
-#>         stop(paste0("Expecting the length of S to be either 1 or to match the number of models (", 
-#>             modLen, ")."))
-#>     }
-#> }
-#> debug: if (modLen == 1L) {
-#>     data <- augment(...)
-#>     if (S != 1) 
-#>         data$y <- data$y * S
-#> } else {
-#>     multDat <- augmentMultiple(...)
-#>     if (any(S != 1)) 
-#>         multDatY <- lapply(seq_along(multDat), function(.) if (S[.] != 
-#>             1) 
-#>             multDat[[.]]$y * S[.])
-#>     data <- do.call(rbind, multDat)
-#>     if (any(S != 1)) 
-#>         data$y <- do.call(c, multDatY)
-#> }
-#> debug: data <- augment(...)
-#> debug: if (S != 1) data$y <- data$y * S
-#> debug: if (is.null(xVals)) xVals <- seq(min(data$x), max(data$x), by = max(data$x)/1000)
-#> debug: xVals <- seq(min(data$x), max(data$x), by = max(data$x)/1000)
-#> debug: cdfData <- lapply(seq_along(models), function(.) {
-#>     params <- models[[.]]$m$getPars()
-#>     data.frame(fitted = tdCDF(xVals, params["r"], params["c"], 
-#>         params["t"], S = S[.]), x = xVals)
-#> })
-#> debug: nRowsFit <- lapply(cdfData, nrow)
-#> debug: cdfData <- do.call(rbind, cdfData)
-#> debug: p <- if (modLen > 1L) {
-#>     cdfData$group <- rep(modelNames, as.integer(nRowsFit))
-#>     nRows <- as.integer(lapply(multDat, nrow))
-#>     data$group <- rep(modelNames, nRows)
-#>     ggplot() + geom_point(data = data, aes_string(x = "x", y = "y", 
-#>         colour = "group")) + geom_line(data = cdfData, aes_string(x = "x", 
-#>         y = "fitted", colour = "group"))
-#> } else {
-#>     ggplot() + geom_point(data = data, aes_string(x = "x", y = "y")) + 
-#>         geom_line(data = cdfData, aes_string(x = "x", y = "fitted"))
-#> }
-#> debug: ggplot() + geom_point(data = data, aes_string(x = "x", y = "y")) + 
-#>     geom_line(data = cdfData, aes_string(x = "x", y = "fitted"))
-#> debug: p
 ```
 
 ![](tools/images/README-cdfPlot-1.png)<!-- -->
