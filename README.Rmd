@@ -85,6 +85,3 @@ tdPdfPlot(model)
 ```{r cdfPlot}
 tdCdfPlot(model)
 ```
-
-# Citation
-Franco, Miguel. (2018). The time distribution of biological phenomena – illustrated with the London marathon. 10.7287/peerj.preprints.27175.

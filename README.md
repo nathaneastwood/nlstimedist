@@ -103,11 +103,11 @@ model
 #> Nonlinear regression model
 #>   model: propMax ~ 1 - (1 - (r/(1 + exp(-c * (Day - t)))))^Day
 #>    data: data
-#>         r         c         t 
-#>   0.02721   0.17126 124.84320 
+#>         r         c         t
+#>   0.02721   0.17126 124.84320
 #>  residual sum-of-squares: 0.01806
-#> 
-#> Number of iterations to convergence: 10 
+#>
+#> Number of iterations to convergence: 10
 #> Achieved convergence tolerance: 1.49e-08
 ```
 
@@ -147,8 +147,3 @@ tdCdfPlot(model)
 ```
 
 ![](tools/images/README-cdfPlot-1.png)<!-- -->
-
-# Citation
-
-Franco, Miguel. (2018). The time distribution of biological phenomena –
-illustrated with the London marathon. 10.7287/peerj.preprints.27175.
