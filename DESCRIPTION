@@ -2,32 +2,38 @@ Package: nlstimedist
 Type: Package
 Title: Non-Linear Model Fitting of Time Distribution of Biological Phenomena
 Version: 2.0.0
-Authors@R: c(
-  person("Nathan", "Eastwood", , "nathan.eastwood@icloud.com",
-         role = c("cre", "prg", "trl")),
-  person("Miguel", "Franco", , "M.Franco@plymouth.ac.uk",
-         role = "aut"),
-  person("Paul", "Ramsay", , "paul.ramsay@plymouth.ac.uk", role = "aut"),
-  person("Nicola", "Steer", , "nicola.steer@plymouth.ac.uk", role = "aut")
-  )
+Authors@R:
+    c(person(
+        given = "Nathan",
+        family = "Eastwood",
+        role = c("aut", "cre", "prg", "trl"),
+        email = "nathan.eastwood@icloud.com"
+      ),
+      person(
+        given = "Nicola",
+        family = "Steer",
+        role = "ctb",
+        email = "nicola.steer@plymouth.ac.uk"
+      ))
 Description: Fit biologically meaningful distribution functions to
-  time-sequence data (phenology), estimate parameters to draw the cumulative
-  distribution function and probability density function and calculate standard
-  statistical moments and percentiles.
+    time-sequence data (phenology), estimate parameters to draw the cumulative
+    distribution function and probability density function and calculate
+    standard statistical moments and percentiles. These methods are described in
+    Steer et al. (2019) <doi:10.1111/2041-210X.13293>.
 URL: https://github.com/nathaneastwood/nlstimedist
 BugReports: https://github.com/nathaneastwood/nlstimedist/issues
 Depends:
-  R (>= 3.5.0)
+    R (>= 3.5.0)
 Imports:
-  ggplot2 (>= 2.1.0),
-  minpack.lm (>= 1.2-0),
-  nlstools (>= 1.0-2),
-  poorman (>= 0.2.1),
-  stats
+    ggplot2 (>= 2.1.0),
+    minpack.lm (>= 1.2-0),
+    nlstools (>= 1.0-2),
+    poorman (>= 0.2.1),
+    stats
 Suggests:
-  knitr,
-  rmarkdown,
-  tinytest
+    knitr,
+    rmarkdown,
+    tinytest
 License: GPL-2
 LazyData: TRUE
 Encoding: UTF-8

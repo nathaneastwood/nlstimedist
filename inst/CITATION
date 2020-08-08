@@ -1,0 +1,39 @@
+citHeader("Below are the citations for using {nlstimedist} or referencing the Franco distribution.")
+
+citEntry(
+  entry = "Manual",
+  title = "nlstimedist: Non-Linear Model Fitting of Time Distribution of Biological Phenomena",
+  author = as.person(c(
+    "Nathan Eastwood <nathan.eastwood@icloud.com> [aut, cre, prg, trl]",
+    "Nicola Steer <nicola.steer@plymouth.ac.uk> [ctb]"
+  )),
+  year = "2020",
+  note = "R package version 2.0.0",
+  url = "https://CRAN.R-project.org/package=nlstimedist",
+  key = "nlstimedist-package",
+  textVersion = paste(
+    "Eastwood, N., Steer, N. C. (2020).",
+    "nlstimedist: Non-Linear Model Fitting of Time Distribution of Biological Phenomena.",
+    "R package version 2.0.0. https://CRAN.R-project.org/package=nlstimedist"
+  ),
+  header = "If the {nlstimedist} package is used, cite:"
+)
+
+citEntry(
+  entry = "Article",
+  title = "nlstimedist : An r package for the biologically meaningful quantification of unimodal phenology distributions",
+  author = personList(as.person("Nicola C. Steer"), as.person("Paul Ramsay"), as.person("Miguel Franco")),
+  journal = "Methods in Ecology and Evolution",
+  year = "2019",
+  volume = "10",
+  issue = "11",
+  pages = "1934--1940",
+  doi = "10.1111/2041-210X.13293",
+  key = "franco-distribution",
+  textVersion = paste(
+    "Steer, N. C., Ramsay, P. M. and Franco, M. (2019)",
+    "nlstimedist : An r package for the biologically meaningful quantification of unimodal phenology distributions.",
+    "Methods in Ecology and Evolution. 10, 1934-1940. doi: 10.1111/2041-210X.13293"
+  ),
+  header = "References to the Franco distribution should cite:"
+)
