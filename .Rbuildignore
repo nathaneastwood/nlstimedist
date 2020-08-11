@@ -12,3 +12,5 @@ nlstimedist.code-workspace
 ^doc$
 ^Meta$
 build_docs.sh
+.*.tar.gz
+^nlstimedist\.Rcheck$

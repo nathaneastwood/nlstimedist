@@ -10,3 +10,6 @@ Meta
 README.html
 build_docs.sh
 cran-comments.md
+CRAN-RELEASE
+*.tar.gz
+*.Rcheck
