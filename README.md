@@ -5,12 +5,12 @@
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Travis-CI Build
 Status](https://travis-ci.org/nathaneastwood/nlstimedist.svg?branch=master)](https://travis-ci.org/nathaneastwood/nlstimedist)
-[![](http://www.r-pkg.org/badges/version/nlstimedist)](http://www.r-pkg.org/pkg/nlstimedist)
+[![](http://www.r-pkg.org/badges/version/nlstimedist)](https://www.r-pkg.org/pkg/nlstimedist)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/nlstimedist)](http://www.r-pkg.org/pkg/remotes)
+downloads](http://cranlogs.r-pkg.org/badges/nlstimedist)](https://www.r-pkg.org/pkg/remotes)
 [![codecov](https://codecov.io/gh/nathaneastwood/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/nathaneastwood/nlstimedist)
 
 `{nlstimedist}` fits a biologically meaningful distribution function to
@@ -103,11 +103,11 @@ model
 #> Nonlinear regression model
 #>   model: propMax ~ 1 - (1 - (r/(1 + exp(-c * (Day - t)))))^Day
 #>    data: data
-#>         r         c         t
-#>   0.02721   0.17126 124.84320
+#>         r         c         t 
+#>   0.02721   0.17126 124.84320 
 #>  residual sum-of-squares: 0.01806
-#>
-#> Number of iterations to convergence: 10
+#> 
+#> Number of iterations to convergence: 10 
 #> Achieved convergence tolerance: 1.49e-08
 ```
 
