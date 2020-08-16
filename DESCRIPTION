@@ -4,17 +4,28 @@ Title: Non-Linear Model Fitting of Time Distribution of Biological Phenomena
 Version: 2.0.0
 Authors@R:
     c(person(
-        given = "Nathan",
-        family = "Eastwood",
-        role = c("aut", "cre", "prg", "trl"),
-        email = "nathan.eastwood@icloud.com"
-      ),
+          given = "Nathan",
+          family = "Eastwood",
+          role = c("aut", "cre", "prg", "trl", "ctr"),
+          email = "nathan.eastwood@icloud.com"),
       person(
-        given = "Nicola",
-        family = "Steer",
-        role = "ctb",
-        email = "nicola.steer@plymouth.ac.uk"
-      ))
+          given = "Nicola",
+          family = "Steer",
+          role = "ctb",
+          email = "nicola.steer@plymouth.ac.uk",
+          comment = c(ORCID = "0000-0002-6446-8601")),
+      person(
+          given = "Miguel",
+          family = "Franco",
+          role = "ctb",
+          email = "M.Franco@plymouth.ac.uk",
+          comment = c(ORCID = "0000-0002-7249-4981")),
+      person(
+          given = "Paul",
+          family = "Ramsay",
+          role = "ctb",
+          email = "paul.ramsay@plymouth.ac.uk",
+          comment = c(ORCID = "0000-0001-7631-6480")))
 Description: Fit biologically meaningful distribution functions to
     time-sequence data (phenology), estimate parameters to draw the cumulative
     distribution function and probability density function and calculate
