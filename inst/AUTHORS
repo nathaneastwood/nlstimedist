@@ -1,0 +1,5 @@
+The {nlstimedist} package integrates the Franco distribution into R using
+{minpack.lm}'s Levenberg-Marquardt algorithm. The code is fully tested and
+provides examples and data. The code was written solely by Nathan Eastwood. The
+vignette was written by Nathan Eastwood, Nicola Steer and Miguel Franco. Data
+were provided by Paul Ramsay.

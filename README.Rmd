@@ -1,26 +1,29 @@
 ---
-output: github_document
+output:
+  md_document:
+    variant: markdown_github
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r opts, echo = FALSE}
-library(nlstimedist)
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "tools/images/README-"
+  comment = "#",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
-
 ```
 
 # {nlstimedist}
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Travis-CI Build Status](https://travis-ci.org/nathaneastwood/nlstimedist.svg?branch=master)](https://travis-ci.org/nathaneastwood/nlstimedist) [![](http://www.r-pkg.org/badges/version/nlstimedist)](https://www.r-pkg.org/pkg/nlstimedist) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/nlstimedist)](https://www.r-pkg.org/pkg/remotes) [![codecov](https://codecov.io/gh/nathaneastwood/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/nathaneastwood/nlstimedist)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Travis-CI Build Status](https://travis-ci.org/nathaneastwood/nlstimedist.svg?branch=master)](https://travis-ci.org/nathaneastwood/nlstimedist)
+[![](http://www.r-pkg.org/badges/version/nlstimedist)](https://www.r-pkg.org/pkg/nlstimedist)
+![CRAN downloads](https://cranlogs.r-pkg.org/badges/nlstimedist)
+[![codecov](https://codecov.io/gh/nathaneastwood/nlstimedist/branch/master/graph/badge.svg)](https://codecov.io/gh/nathaneastwood/nlstimedist)
 
-`{nlstimedist}` fits a biologically meaningful distribution function to time-sequence data (phenology), estimates parameters to draw the cumulative distribution function and probability density function and calculates standard statistical moments and percentiles.
+{nlstimedist} fits a biologically meaningful distribution function to time-sequence data (phenology), estimates parameters to draw the cumulative distribution function and probability density function and calculates standard statistical moments and percentiles.
 
-# Installation
+## Installation
 
 You can install:
 
@@ -37,12 +40,14 @@ install.packages("nlstimedist")
 remotes::install_github("nathaneastwood/nlstimedist")
 ```
 
-# Usage
+## Usage
 
-## Preparing the data
-Data should be in tidy format. `{nlstimedist}` provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
+### Preparing the data
+
+Data should be in tidy format. {nlstimedist} provides three example tidy datasets: `lobelia`, `pupae` and `tilia`.
 
 ```{r data}
+library(nlstimedist)
 head(tilia)
 ```
 
@@ -53,29 +58,29 @@ tdTilia <- tdData(tilia, x = "Day", y = "Trees")
 tdTilia
 ```
 
-## Fitting the model
-We fit the model to the proportion of the cumulative number of trees (`propMax`) in the `tdTilia` data using the `timedist()` function.
+### Fitting the model
+We fit the model to the proportion of the cumulative number of trees (`propMax`) in the `tdTilia` object using the `timedist()` function.
 
 ```{r model}
 model <- timedist(data = tdTilia, x = "Day", y = "propMax", r = 0.1, c = 0.5, t = 120)
 model
 ```
 
-## Extracting the moments
+### Extracting the moments
 We can extract the mean, variance, standard deviation, skew, kurtosis and entropy of the model as follows.
 
 ```{r moments}
 model$m$getMoments()
 ```
 
-## Extracting the RSS
+### Extracting the RSS
 Similarly we can extract the RSS of the model
 
 ```{r rss}
 model$m$rss()
 ```
 
-## Plotting the PDF and CDF
+### Plotting the PDF and CDF
 The probability density function (PDF) and the cumulative distribution function (CDF) of the model have their own plotting functions.
 
 ```{r pdfPlot}
